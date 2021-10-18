@@ -1,14 +1,22 @@
 import SideArticle from './SideArticle';
 
-function Sidebar(){
+function Sidebar(props){
     return (
-        <>
-        I'm a Sidebar!
+        <div className="Sidebar">
+        <h2>Sidebar Label</h2>
         <SideArticle />
         <SideArticle />
         <SideArticle />
         <SideArticle />
-        </>
+        <SideArticle />
+        <SideArticle />
+        <SideArticle />
+        <SideArticle />
+        <SideArticle />
+        <SideArticle />
+        <SideArticle />
+        <SideArticle />
+        </div>
     )
 }
 export default Sidebar

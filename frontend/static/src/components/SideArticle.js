@@ -1,8 +1,9 @@
-function SideArticle(){
+function SideArticle(props){
     return (
-        <>
-        I'm a Sidebar Article!
-        </>
+        <div className="sidebar-article">
+            <h3>I'm a short headline</h3>
+            I'm a Sidebar Article!
+        </div>
     )
 }
 export default SideArticle

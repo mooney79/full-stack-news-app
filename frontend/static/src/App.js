@@ -11,10 +11,21 @@ function App() {
     <div className="App">
       <Masthead />
       <Navbar />
-      <Page />
-      <Sidebar />        
+      <div className="wrapper">
+        <Page />
+        <Sidebar />        
+      </div>
     </div>
   );
 }
 
 export default App;
+
+/*
+I need to add other layout styles.  Maybe have a random way of determining? Or 
+something?
+
+Main story
+Regular articles
+Side Articles
+*/
