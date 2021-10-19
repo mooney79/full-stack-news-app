@@ -3,17 +3,22 @@ import Masthead from './components/Masthead';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Page from './components/Page';
+import { useState } from 'react';
 
 
 
 function App() {
+  const [articles, setArticles] = useState({
+
+  })
+
   return (
     <div className="App">
       <Masthead />
       <Navbar />
       <div className="wrapper">
-        <Page />
-        <Sidebar />        
+        <Page articles={articles} setArticles={setArticles}/>
+        <Sidebar articles={articles} setArticles={setArticles}/>        
       </div>
     </div>
   );
@@ -22,10 +27,4 @@ function App() {
 export default App;
 
 /*
-I need to add other layout styles.  Maybe have a random way of determining? Or 
-something?
-
-Main story
-Regular articles
-Side Articles
 */

@@ -1,8 +1,12 @@
+import masthead from './images/Masthead.png'
+
 function Masthead(){
     return (
         <div className="Masthead">
-          <h1>I'm the Masthead</h1>
+          <img src={masthead} alt="The New York End Times" />
         </div>
     )
 }
 export default Masthead
+
+

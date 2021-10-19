@@ -42,12 +42,25 @@ INSTALLED_APPS = [
     'rest_framework',
 
     #local
+    # 'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
     'articles.apps.ArticlesConfig',
     'frontend.apps.FrontendConfig',
 
 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,5 +148,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'articles.User'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 SECRET_KEY = os.environ['SECRET_KEY']
