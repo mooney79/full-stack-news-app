@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1:3000', 'localhost:3000', '127.0.0.1']
 
 
 # Application definition
@@ -37,9 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites', 
 
     #Third party
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'rest_auth.registration',
 
     #local
     # 'accounts.apps.AccountsConfig',
@@ -153,3 +160,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 SECRET_KEY = os.environ['SECRET_KEY']
+
+SITE_ID = 1
+
+
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend/static')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'frontend/static/build/static'),)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+

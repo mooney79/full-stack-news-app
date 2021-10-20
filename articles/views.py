@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .serializers import ArticleSerializer
-from .models import Article
+from .serializers import ArticleSerializer, UserSerializer
+from .models import Article, User
 # from django.shortcuts import get_object_or_404
 from .permissions import IsOwnerOrReadOnly 
 
@@ -19,4 +19,7 @@ class ArticleDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         pk = self.kwargs['pk']
         return Article.objects.filter(id=pk)
 
+class UserListAPIView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
