@@ -12,6 +12,7 @@ import ProfileForm from './components/ProfileForm'
 import RegistrationForm from './components/RegistrationForm'
 import LoginForm from './components/Login/LoginForm'
 import Cookies from 'js-cookie';
+import MyStories from './components/MyStories';
 
 
 
@@ -108,6 +109,12 @@ function App() {
       <Masthead />
       <Navbar isAuth={isAuth} setIsAuth={setIsAuth} user={user} isStaff={isStaff}/>
       <Switch>
+      <Route path='/mystories'>
+          <div className="wrapper">
+            <MyStories articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+        </Route>
         <Route path='/login'>
           <LoginForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
         </Route>
@@ -122,7 +129,7 @@ function App() {
             <Page articles={articles} setArticles={setArticles} isStaff={isStaff}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
-        </Route>
+        </Route>        
       </Switch>
 
   

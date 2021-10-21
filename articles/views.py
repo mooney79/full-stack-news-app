@@ -33,14 +33,16 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 class ArticleListFrontendView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ArticleSerializer
-
+    """Returns published Articles"""
+    def get_queryset(self):
+        queryset = Article.objects.filter(phase='pub')
+    
+class PersonalArticleList(generics.ListCreateAPIView):
+    serializer_class = ArticleSerializer
+    """Returns Articles written by User"""
     def get_queryset(self):
         queryset = Article.objects.all()
-        staff = self.request.query_params.get('is_staff')
-        if staff:
-            queryset = queryset.filter(user__name=Article.author)
-        else:
-            queryset = Article.objects.filter(phase='pub')
+        queryset = Article.objects.filter(author=self.request.user)
         return queryset
     
     # class PurchaseList(generics.ListAPIView):
@@ -57,3 +59,10 @@ class ArticleListFrontendView(generics.RetrieveUpdateDestroyAPIView):
     #         queryset = queryset.filter(purchaser__username=username)
     #     return queryset
 
+        # queryset = Article.objects.all()
+        # staff = self.request.query_params.get('is_staff')
+        # if staff:
+        #     queryset = queryset.filter(user__name=Article.author)
+        # else:
+        #     queryset = Article.objects.filter(phase='pub')
+        # return queryset

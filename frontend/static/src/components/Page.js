@@ -48,7 +48,6 @@ function Page(props){
     return (
         <div className="page">
             <div className="article col-12">
-                {testing}
                 {posts}
             </div>
         </div>

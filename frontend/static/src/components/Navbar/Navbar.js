@@ -38,7 +38,7 @@ function Navbar(props){
     }
 
     if (props.isStaff === true) {
-      staffPageLink = <li className="nav-item mr-3"> <NavLink to='/profile'> My Stories </NavLink></li>
+      staffPageLink = <li className="nav-item mr-3"> <NavLink to='/mystories'> My Stories </NavLink></li>
     } else {
       staffPageLink=<></>
     }

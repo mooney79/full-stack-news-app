@@ -14,9 +14,10 @@
 }
 
 
-.Navbar{
+.navbar{
   width: 100%;
   text-align: center;
+  margin-bottom: 16px;
 }
 
 .Sidebar{
@@ -46,7 +47,8 @@
 
 .article{
   width: 100%;
-  border: 1px pink solid;
+  margin-left: 48px;
+  /* border: 1px pink solid; */
   /* display: flex; */
   /* flex-direction: column; */
   /* flex-wrap: wrap; */
@@ -110,3 +112,14 @@ h2 {
   font-weight: bold;
 }
 
+.badgewrap{
+  display: flex;
+  align-content:center;
+  justify-content: center;
+}
+
+.badge{
+  margin-left: 8px;
+  background-color:darkgray;
+  align-self: center;
+}
