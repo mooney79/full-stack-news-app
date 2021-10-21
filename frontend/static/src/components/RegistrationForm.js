@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Cookies from 'js-cookie'
 
 function RegistrationForm(props){
-    const [user, setUser] = useState({
+    const [userReg, setUserReg] = useState({
         username: '',
         email: '',
         password1: '',
@@ -11,7 +11,7 @@ function RegistrationForm(props){
 
     function handleInput(event) {
         const {name, value} = event.target;
-        setUser(prevState => ({   //prevState is a variable name for the previous
+        setUserReg(prevState => ({   //prevState is a variable name for the previous
             ...prevState,         //value of the state
             [name]:value,
         }))
@@ -25,7 +25,7 @@ function RegistrationForm(props){
 
     async function handleSubmit(event) {
         event.preventDefault();
-        if(user.password1 !== user.password2){
+        if(userReg.password1 !== userReg.password2){
             setError('Passwords do not match!');
         } else {
             //fire off registration process
@@ -35,7 +35,7 @@ function RegistrationForm(props){
                     'Content-Type': 'application/json',
                     'X-CSRFToken': Cookies.get('csrftoken'),
                 },
-                body: JSON.stringify(user)
+                body: JSON.stringify(userReg)
             };
 
             const response = await fetch('/rest-auth/registration/', options).catch(handleError);
@@ -61,7 +61,7 @@ function RegistrationForm(props){
                     onChange={handleInput}
                     required
                     name='username'
-                    value={user.username}
+                    value={userReg.username}
                 />
             </div>
             <div className="form-group text-left mb-3">
@@ -73,7 +73,7 @@ function RegistrationForm(props){
                     onChange={handleInput}
                     required
                     name='email'
-                    value={user.email}
+                    value={userReg.email}
                 />
             </div>
             <div className="form-group text-left mb-3">
@@ -85,7 +85,7 @@ function RegistrationForm(props){
                     onChange={handleInput}
                     required
                     name='password1'
-                    value={user.password1}
+                    value={userReg.password1}
                 />
             </div>
             <div className="form-group text-left mb-3">
@@ -97,7 +97,7 @@ function RegistrationForm(props){
                     onChange={handleInput}
                     required
                     name='password2'
-                    value={user.password2}
+                    value={userReg.password2}
                 />
                 {error &&<span className="text-danger"> {error}</span>}
             </div>

@@ -22,6 +22,11 @@ function Page(props){
     // }
 
     // articles=props.articles.filter(article => props.selection === msg.room_assoc);
+    // let testing;
+    // if (props.isStaff === true){
+    //     testing = <h1>I AM STAFF!</h1>
+    // }
+
     let posts;
     if (props.articles !== {}){
         posts = props.articles.map(post => <Article key={post.id+9000} {...post} articles={props.articles} setArticles={props.setArticles} />)
@@ -43,6 +48,7 @@ function Page(props){
     return (
         <div className="page">
             <div className="article col-12">
+                {testing}
                 {posts}
             </div>
         </div>

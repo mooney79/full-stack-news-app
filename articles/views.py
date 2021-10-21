@@ -23,6 +23,14 @@ class UserListAPIView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return User.objects.filter(id=pk)
+
+
 class ArticleListFrontendView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ArticleSerializer
 

@@ -4,14 +4,14 @@ import Cookies from 'js-cookie';
 import './Login.css';
 
 function LoginForm(props){
-    const [user, setUser] = useState({
+    const [userLog, setUserLog] = useState({
         username: '',
         password: '',
     })
 
     function handleInput(event) {
         const {name, value} = event.target;
-        setUser(prevState => ({   //prevState is a variable name for the previous
+        setUserLog(prevState => ({   //prevState is a variable name for the previous
             ...prevState,         //value of the state
             [name]:value,
         }))
@@ -31,7 +31,7 @@ function LoginForm(props){
                 'Content-Type': 'application/json',
                 'X-CSRFToken': Cookies.get('csrftoken'),
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(userLog)
         };
 
         const response = await fetch('/rest-auth/login/', options).catch(handleError);
@@ -41,12 +41,12 @@ function LoginForm(props){
             const data = await response.json();
             Cookies.set('Authorization', `Token ${data.key}`); // This is bad mang.
             props.setIsAuth(true);
-            props.history.push('/profile');  // This pushes the browser to the next area
+            // props.history.push('/profile');  // This pushes the browser to the next area
         }
     
     }
     if (props.isAuth){  //Example of a redirect, but kind of balls user-friendly-wise.  Instead, replace login button with logout button
-        return <Redirect to="/profile" />
+        return <Redirect to="/" />
     } //Could flip it to protect "profileForm" and redirect them to login
 
     return(
@@ -61,7 +61,7 @@ function LoginForm(props){
                     onChange={handleInput}
                     required
                     name='username'
-                    value={user.username}
+                    value={userLog.username}
                 />
             </div>
             <div className="form-group text-left mb-3">
@@ -73,7 +73,7 @@ function LoginForm(props){
                     onChange={handleInput}
                     required
                     name='password'
-                    value={user.password1}
+                    value={userLog.password1}
                 />
             </div>
             <button type="submit" className="btn btn-primary mt-3" >Log in</button>

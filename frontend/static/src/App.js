@@ -19,8 +19,9 @@ function App() {
   const [articles, setArticles] = useState([{headline: '', text: ''}]);
   const [isAuth, setIsAuth] = useState(null);
   const [isStaff, setIsStaff] = useState(null);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({pk: 1});
   let test;
+  let pk;
 
   const history = useHistory();
   
@@ -33,7 +34,10 @@ function App() {
     });    
     if (response.ok){
         const data = await response.json();
-        setUser(data);
+        pk = data.pk;
+        setUser({pk: pk});
+        console.log(data);
+        console.log(pk)
     }
   }
 
@@ -47,25 +51,34 @@ function App() {
         test=data;
         setArticles(test);
     }
-  }
-
-  useEffect(() => {
-    fetchUser();
-    fetchArticles();
-  }, []);
+  };
 
   const checkStaff = async () => {
-    const response = await fetch('/rest-auth/user/');
+    const response = await fetch(`/api_v1/articles/users/${pk}/`);
     if (!response.ok) {
       setIsStaff(false);
       console.log(isStaff);
       console.log(response);
     } else {
+      const staff = await response.json();
+      if (staff.is_staff === true){
       setIsStaff(true);
       console.log(isStaff);
       console.log(response);
-    }
-  }
+    }}
+  };
+
+  useEffect(async () => {
+    await fetchUser();
+    await fetchArticles();
+    console.log(pk)
+    await checkStaff();
+    console.log(user);
+  }, [, isAuth]);
+
+  
+
+  // api_v1/articles/users/
 
 
   useEffect(()=> {
@@ -82,9 +95,9 @@ function App() {
     checkAuth();
     fetchArticles();
     console.log(articles);
-    checkStaff();
+    // checkStaff();
     console.log(user);
-  }, [history])
+  }, [history, isStaff, user])
 
   if (isAuth === null){
     return <Spinner animation="grow" variant='primary' />
@@ -93,20 +106,20 @@ function App() {
   return (
     <div className="App">
       <Masthead />
-      <Navbar isAuth={isAuth} setIsAuth={setIsAuth}/>
+      <Navbar isAuth={isAuth} setIsAuth={setIsAuth} user={user} isStaff={isStaff}/>
       <Switch>
         <Route path='/login'>
-          <LoginForm isAuth={isAuth} setIsAuth={setIsAuth}/>
+          <LoginForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
         </Route>
         <Route path='/register'>
-          <RegistrationForm isAuth={isAuth} setIsAuth={setIsAuth}/>
+          <RegistrationForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
         </Route>
         <Route path='/profile'>
-          <ProfileForm isAuth={isAuth} setIsAuth={setIsAuth}/>
+          <ProfileForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
         </Route>
         <Route path=''>
           <div className="wrapper">
-            <Page articles={articles} setArticles={setArticles}/>
+            <Page articles={articles} setArticles={setArticles} isStaff={isStaff}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
         </Route>

@@ -4,12 +4,32 @@ import './Navbar.css'
 
 function Navbar(props){
     let logHTML;
+    let staffPageLink;
     console.log(props)
 
-    const handleLogout = () => {
-      Cookies.remove('Authorization');
-      props.setIsAuth(false);
+    const handleLogout = async () => {
+      const options = {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json',
+            'X-CSRFToken': Cookies.get('csrftoken'),
+        },
+        body: JSON.stringify(props.user)
+      };
+
+      const response = await fetch('/rest-auth/logout/', options)
+      if(!response){
+          console.log(response);
+      } else {
+        const data = await response.json();
+        Cookies.remove('Authorization');
+        props.setIsAuth(false);
+      }
     };
+
+
+
+
 
     if (props.isAuth === true){
       logHTML = <NavLink to='/logout' onClick={handleLogout}> Logout </NavLink>
@@ -17,7 +37,11 @@ function Navbar(props){
       logHTML = <NavLink to='/login'> Login </NavLink>  
     }
 
-    
+    if (props.isStaff === true) {
+      staffPageLink = <li className="nav-item mr-3"> <NavLink to='/profile'> My Stories </NavLink></li>
+    } else {
+      staffPageLink=<></>
+    }
 
 
     return (
@@ -40,6 +64,7 @@ function Navbar(props){
           {/* <NavLink to='/login'> Login </NavLink> */}
           {logHTML}  
         </li>
+        {staffPageLink}
         {/* <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
           <div className="dropdown-menu">
