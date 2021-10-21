@@ -1,7 +1,25 @@
 import { NavLink } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import './Navbar.css'
 
 function Navbar(props){
+    let logHTML;
+    console.log(props)
+
+    const handleLogout = () => {
+      Cookies.remove('Authorization');
+      props.setIsAuth(false);
+    };
+
+    if (props.isAuth === true){
+      logHTML = <NavLink to='/logout' onClick={handleLogout}> Logout </NavLink>
+    } else {
+      logHTML = <NavLink to='/login'> Login </NavLink>  
+    }
+
+    
+
+
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
   <div className="container-fluid">
@@ -19,7 +37,8 @@ function Navbar(props){
           <NavLink to='/profile'> Profile </NavLink>
         </li>
         <li className="nav-item mr-3">
-          <NavLink to='/login'> Login </NavLink>  
+          {/* <NavLink to='/login'> Login </NavLink> */}
+          {logHTML}  
         </li>
         {/* <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
@@ -48,6 +67,10 @@ export default Navbar
 
 
 /*
+
+ {error &&<span className="text-danger"> {error}</span>}
+
+
 function Header(props) {
     return(
         <nav classNameName="navbar navbar-expand-lg navbar-dark bg-dark">

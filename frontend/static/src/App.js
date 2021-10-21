@@ -11,16 +11,61 @@ import PrivateRoute from './components/PrivateRoute';
 import ProfileForm from './components/ProfileForm'
 import RegistrationForm from './components/RegistrationForm'
 import LoginForm from './components/Login/LoginForm'
+import Cookies from 'js-cookie';
 
 
 
 function App() {
-  const [articles, setArticles] = useState({
-
-  });
+  const [articles, setArticles] = useState([{headline: '', text: ''}]);
   const [isAuth, setIsAuth] = useState(null);
+  const [isStaff, setIsStaff] = useState(null);
+  const [user, setUser] = useState({});
+  let test;
 
   const history = useHistory();
+  
+  async function fetchUser(){
+    const response = await fetch(`/rest-auth/user/`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': Cookies.get('csrftoken'),
+      }
+    });    
+    if (response.ok){
+        const data = await response.json();
+        setUser(data);
+    }
+  }
+
+
+
+
+  async function fetchArticles(){
+    const response = await fetch('/api_v1/articles/');
+    if (response.ok){
+        const data = await response.json();
+        test=data;
+        setArticles(test);
+    }
+  }
+
+  useEffect(() => {
+    fetchUser();
+    fetchArticles();
+  }, []);
+
+  const checkStaff = async () => {
+    const response = await fetch('/rest-auth/user/');
+    if (!response.ok) {
+      setIsStaff(false);
+      console.log(isStaff);
+      console.log(response);
+    } else {
+      setIsStaff(true);
+      console.log(isStaff);
+      console.log(response);
+    }
+  }
 
 
   useEffect(()=> {
@@ -28,13 +73,17 @@ function App() {
       const response = await fetch('/rest-auth/user/');
       if (!response.ok) {
         setIsAuth(false);
-        history.push('/login');
+        // history.push('/login');
       } else {
         setIsAuth(true);
-        history.push('/profile');
+        // history.push('');
       }
     }
     checkAuth();
+    fetchArticles();
+    console.log(articles);
+    checkStaff();
+    console.log(user);
   }, [history])
 
   if (isAuth === null){
@@ -44,7 +93,7 @@ function App() {
   return (
     <div className="App">
       <Masthead />
-      <Navbar />
+      <Navbar isAuth={isAuth} setIsAuth={setIsAuth}/>
       <Switch>
         <Route path='/login'>
           <LoginForm isAuth={isAuth} setIsAuth={setIsAuth}/>
@@ -86,8 +135,8 @@ export default withRouter(App);;
 
 /*
 
-    <Profile />
-
+  <Profile />
+  <input type="textfield" value="Edit me, Seymour!"/>
 
 
 import RegistrationForm from '../Registration/RegistrationForm';

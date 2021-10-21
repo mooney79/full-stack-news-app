@@ -1,4 +1,12 @@
+import './Article.css';
+// import Collapse from 'react-bootstrap/Collapse'
+import { useState, useEffect, useCallback } from 'react';
+
 function Article(props){
+    const [open, setOpen] = useState(true);
+    const [, updateState] = useState();
+    const forceUpdate = useCallback(() => updateState({}), []);
+    // setOpen(true);
 
     let articleHTML;                           // TEST (!!props.article.photo3)
     if (false){              //Set proper styling for each case
@@ -20,6 +28,7 @@ function Article(props){
             <p>  I'm an article! Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fuga magni enim quia harum hic quas a quasi, tempora laborum iusto accusamus animi doloremque, culpa, eos nulla voluptas quisquam quo!</p>
         </article>
     } else if (false){         //// //// TEST (!!props.article.photo2)
+        
         articleHTML =    
         <article>
              <div className="photo1-1-photo-layout">Image1</div>
@@ -27,12 +36,36 @@ function Article(props){
             <p>  I'm an article! Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fuga magni enim quia harum hic quas a quasi, tempora laborum iusto accusamus animi doloremque, culpa, eos nulla voluptas quisquam quo!</p>
         </article>
     } else {
+        // console.log(props);
+        // let article_id = props.id;
+
         articleHTML =
-        <article>
-            <h2>I'm a bigger headline that stretches across the page!</h2>
-            <p>  I'm an article! Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fuga magni enim quia harum hic quas a quasi, tempora laborum iusto accusamus animi doloremque, culpa, eos nulla voluptas quisquam quo!</p>
+        <article id="{props.id}">
+            <div className="headwrap">
+                <h2>{props.headline}</h2>
+                <button id="read-button" onClick={handleClick}>Read More</button>
+            </div>
+            <p>{props.text}</p>
         </article>
     }
+
+    function handleClick(event){
+        setOpen(!open);
+        const artID = event.target.parentElement.parentElement; //.id;
+        // const art = document.getElementById(`${artID}`);
+        if (open===true){    
+            artID.style.maxHeight='500vh';
+            event.target.innerHTML="Read Less"
+        } else {
+            artID.style.maxHeight='20vh';
+            event.target.innerHTML="Read More"
+        }
+        // forceUpdate();
+    }
+
+    // useEffect(() => {
+    //     console.log('Forcing re-render')
+    // },[open]);
 
 
 
@@ -94,4 +127,38 @@ Photo   tezt    tezt
 <article> displayflex row
     <text>
     <img2> float right
-*/
+
+
+
+
+function Collapse() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button
+        onClick={() => setOpen(!open)}
+      >
+        Read More
+      </Button>
+      <Collapse in={open}>
+        <div id="example-collapse-text">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+          terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+          labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+      </Collapse>
+    </>
+  );
+}
+
+render(<Example />);
+
+
+
+
+
+
+
+
+    */
