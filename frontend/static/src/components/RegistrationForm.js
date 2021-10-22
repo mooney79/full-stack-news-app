@@ -11,8 +11,8 @@ function RegistrationForm(props){
 
     function handleInput(event) {
         const {name, value} = event.target;
-        setUserReg(prevState => ({   //prevState is a variable name for the previous
-            ...prevState,         //value of the state
+        setUserReg(prevState => ({  
+            ...prevState,        
             [name]:value,
         }))
     }

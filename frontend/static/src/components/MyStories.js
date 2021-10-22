@@ -23,7 +23,7 @@ function MyStories(props){
   
     let myPosts;
     if (myStories !== []){
-        myPosts = myStories.map(post => <Post key={post.id+8000} {...post} articles={props.articles} setArticles={props.setArticles} />)
+        myPosts = myStories.map(post => <Post key={post.id+8000} {...post} articles={props.articles} setArticles={props.setArticles} setArticleID={props.setArticleID}/>)
     } else {
         myPosts = <> <Spinner animation="grow" variant='primary' /><p>Loading...</p></>
     }

@@ -5,19 +5,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class User(AbstractUser):
     pass
-    # PUBLICUSER = 'pubs'
-    # AUTHUSER = 'auth'
-    # ADMIN = 'admn'
-    # USER_LEVELS = [
-    #     (PUBLICUSER, 'Public User'),
-    #     (AUTHUSER, 'Authenticated User'),
-    #     (ADMIN, 'Administrator'),
-    # ]   
-    # levels = models.CharField(
-    #     max_length=4,
-    #     choices=USER_LEVELS,
-    #     default=PUBLICUSER,
-    # )
+
 
 class Article(models.Model):
     headline = models.CharField(max_length=255)
@@ -28,9 +16,9 @@ class Article(models.Model):
     photo1 = models.ImageField(upload_to="images/", null=True, default=None, blank=True)
     photo2 = models.ImageField(upload_to="images/", null=True, default=None, blank=True)
     photo3 = models.ImageField(upload_to="images/", null=True, default=None, blank=True)
-    category1 = models.CharField(max_length=255, null=True)
-    category2 = models.CharField(max_length=255, null=True, blank=True)
-    category3 = models.CharField(max_length=255, null=True, blank=True)
+    # category1 = models.CharField(max_length=255, null=True)
+    # category2 = models.CharField(max_length=255, null=True, blank=True)
+    # category3 = models.CharField(max_length=255, null=True, blank=True)
     DRAFT = 'dft'
     SUBMITTED = 'sub'
     PUBLISHED = 'pub'
@@ -46,6 +34,34 @@ class Article(models.Model):
         choices=PHASE_CHOICES,
         default=DRAFT,
     )
+
+    CURRENT = 'cur'
+    CONSPIRACY = 'con'
+    ENERGY = 'nrg'
+    NONE = 'non'
+    AVAIL_CATS = [
+        (CURRENT, 'Current Events'),
+        (CONSPIRACY, 'Conspiracies'),
+        (ENERGY, 'Energy and Tech'),
+        (NONE, 'None'),
+    ] 
+    category1 = models.CharField(
+        max_length=3, null=True, blank=True,
+        choices=AVAIL_CATS,
+        default=NONE,
+    )
+    category2 = models.CharField(
+        max_length=3, null=True, blank=True,
+        choices=AVAIL_CATS,
+        default=NONE,
+    )
+    category3 = models.CharField(
+        max_length=3, null=True, blank=True,
+        choices=AVAIL_CATS,
+        default=NONE,
+    )
+
+
 
     def __str__(self):
         return self.headline

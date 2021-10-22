@@ -13,6 +13,7 @@ import RegistrationForm from './components/RegistrationForm'
 import LoginForm from './components/Login/LoginForm'
 import Cookies from 'js-cookie';
 import MyStories from './components/MyStories';
+import ArticleEdit from './components/ArticleEdit';
 
 
 
@@ -21,8 +22,10 @@ function App() {
   const [isAuth, setIsAuth] = useState(null);
   const [isStaff, setIsStaff] = useState(null);
   const [user, setUser] = useState({pk: 1});
+  const [articleID, setArticleID] = useState(0);
   let test;
   let pk;
+
 
   const history = useHistory();
   
@@ -65,6 +68,7 @@ function App() {
       if (staff.is_staff === true){
       setIsStaff(true);
       console.log(isStaff);
+      console.log(staff)
       console.log(response);
     }}
   };
@@ -111,12 +115,15 @@ function App() {
       <Switch>
       <Route path='/mystories'>
           <div className="wrapper">
-            <MyStories articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <MyStories articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
         </Route>
         <Route path='/login'>
           <LoginForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
+        </Route>
+        <Route path='/edit'>
+          <ArticleEdit user={user} articleID={articleID}/>
         </Route>
         <Route path='/register'>
           <RegistrationForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>

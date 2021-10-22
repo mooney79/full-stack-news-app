@@ -2,8 +2,10 @@ import './Post.css';
 // import Collapse from 'react-bootstrap/Collapse'
 import { useState, useEffect, useCallback } from 'react';
 import Badge from 'react-bootstrap/Badge'
+import { useHistory } from 'react-router-dom';
 
 function Post(props){
+    const history = useHistory();
     const [open, setOpen] = useState(true);
     // const [, updateState] = useState();
     // const forceUpdate = useCallback(() => updateState({}), []);
@@ -28,7 +30,7 @@ function Post(props){
 
     let editButton;
     if (phaseDesc === 'Draft'){
-        editButton = <button id="edit-button" onClick={handleClick}>Edit</button>                
+        editButton = <button id="edit-button" onClick={handleEditClick}>Edit</button>                
     } else {
         editButton = <> </>
     }
@@ -82,7 +84,7 @@ function Post(props){
         // let article_id = props.id;
 
         articleHTML =
-        <article id="{props.id}">
+        <article id={props.id}>
             <div className="headwrap">
                 <div className="badgewrap">
                 <h2>{props.headline}</h2><Badge className="badge">{phaseDesc}</Badge>
@@ -99,7 +101,7 @@ function Post(props){
 
     function handleClick(event){
         setOpen(!open);
-        const artID = event.target.parentElement.parentElement; //.id;
+        const artID = event.target.parentElement.parentElement.parentElement; //.id;
         // const art = document.getElementById(`${artID}`);
         if (open===true){    
             artID.style.maxHeight='500vh';
@@ -110,6 +112,16 @@ function Post(props){
         }
         // forceUpdate();
     }
+
+    function handleEditClick(event){
+        let articleID = event.target.parentElement.parentElement.parentElement.id; //.id;
+        props.setArticleID(articleID);
+        console.log(articleID);
+        // const art = document.getElementById(`${artID}`);
+        history.push('/edit/');
+    }
+
+    
 
     // useEffect(() => {
     //     console.log('Forcing re-render')
@@ -126,7 +138,7 @@ function Post(props){
 export default Post
 
 ////////////////////////////////////////
-//ADD -- IMPLEMENT EDIT BUTTON.
+//ADD -- IMPLEMENT EDIT BUTTON.  pass in article as prop so I can props.id
 ///////////////////////////////////////
 
 /*
