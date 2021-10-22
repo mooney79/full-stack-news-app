@@ -24,6 +24,7 @@ function Navbar(props){
         const data = await response.json();
         Cookies.remove('Authorization');
         props.setIsAuth(false);
+        props.setUser(4);
       }
     };
 
@@ -90,7 +91,9 @@ function Navbar(props){
 export default Navbar
 
 
-
+////////////////////////////////
+//  ADD BUTTONS FOR MY CATEGORIES
+///////////////////////////////
 /*
 
  {error &&<span className="text-danger"> {error}</span>}

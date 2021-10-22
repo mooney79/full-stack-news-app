@@ -21,7 +21,7 @@ function App() {
   const [articles, setArticles] = useState([{headline: '', text: ''}]);
   const [isAuth, setIsAuth] = useState(null);
   const [isStaff, setIsStaff] = useState(null);
-  const [user, setUser] = useState({pk: 1});
+  const [user, setUser] = useState({pk: 4});
   const [articleID, setArticleID] = useState(0);
   let test;
   let pk;
@@ -81,10 +81,6 @@ function App() {
     console.log(user);
   }, [, isAuth]);
 
-  
-
-  // api_v1/articles/users/
-
 
   useEffect(()=> {
     const checkAuth = async () => {
@@ -111,14 +107,14 @@ function App() {
   return (
     <div className="App">
       <Masthead />
-      <Navbar isAuth={isAuth} setIsAuth={setIsAuth} user={user} isStaff={isStaff}/>
+      <Navbar isAuth={isAuth} setIsAuth={setIsAuth} user={user} isStaff={isStaff} setUser={setUser}/>
       <Switch>
-      <Route path='/mystories'>
+      <PrivateRoute path='/mystories' isStaff={isStaff}>
           <div className="wrapper">
             <MyStories articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
-        </Route>
+        </PrivateRoute>
         <Route path='/login'>
           <LoginForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
         </Route>
@@ -138,21 +134,11 @@ function App() {
           </div>
         </Route>        
       </Switch>
-
-  
-  
     </div>
   );
 }
 
-      // <Header />
-      // <Switch>
-      //   <Route path='/login'>
-      //     <LoginForm isAuth={isAuth} setIsAuth={setIsAuth}/>
-      //   </Route>
-      //   <Route path='/register'>
-      //     <RegistrationForm />
-      //   </Route>
+
       //   <PrivateRoute path='/profile' isAuth={isAuth}>
       //     <ProfileForm />
       //   </PrivateRoute>
@@ -161,6 +147,11 @@ function App() {
 export default withRouter(App);;
 
 /*
+Figure out WHY unauthorized users can't view any content!
+Potential culprits -- My user fetch, the backend view/queryset
+      checkAuth, checkStaff
+
+
 
   <Profile />
   <input type="textfield" value="Edit me, Seymour!"/>

@@ -33,6 +33,7 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 class ArticleListFrontendView(generics.ListCreateAPIView):
     serializer_class = ArticleSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     """Returns published Articles"""
     def get_queryset(self):
         queryset = Article.objects.filter(phase='pub')
