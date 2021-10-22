@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import { useHistory } from 'react-router-dom';
 // import { withRouter} from 'react-router-dom';
 
 
-
 function ArticleEdit(props){
-    const [story, setStory] = useState({
-
-    });
+    const [story, setStory] = useState({submit: 0});
+    const history = useHistory();
 
     async function fetchArticleDetail(){
+        if (props.articleID === 0){
+            history.push('/mystories/'); 
+        }
         const response = await fetch(`/api_v1/articles/${props.articleID}/`);
         if (response.ok){
             const data = await response.json();
-            setStory(data);
+            setStory({...story, ...data});
         }
     };
 
@@ -28,8 +31,32 @@ function ArticleEdit(props){
         fetchArticleDetail();
     }, [])
 
-    function handleSubmit(){
-        console.log("I'll do something eventually!")
+    useEffect(() => {
+        if(story.submit) {
+            async function postData() {
+                const options = {
+                    method: 'PUT',
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': Cookies.get('csrftoken'),
+                    },
+                    body: JSON.stringify(story)
+                };
+                const response = await fetch(`/api_v1/articles/${props.articleID}/`, options);
+                const data = await response.json();
+                console.log('data', data);
+                history.push('/mystories/');
+            };
+
+            postData();
+           
+        }
+    }, [story.submit]);
+
+    async function handleSubmit(event){
+        event.preventDefault();
+        const phase = event.target.value;
+        setStory({ ...story, phase, submit: story.submit + 1 });
     }
 
     return(
@@ -40,7 +67,6 @@ function ArticleEdit(props){
                 className="form-control"
                 id="headline"
                 onChange={handleInput}
-                required
                 name='headline'
                 value={story.headline}
             />
@@ -53,7 +79,6 @@ function ArticleEdit(props){
                 className="form-control"
                 id="text"
                 onChange={handleInput}
-                required
                 name='text'
                 value={story.text}
             />
@@ -86,48 +111,10 @@ function ArticleEdit(props){
             </select>
         </div>       
 
-        <button type="submit" className="btn btn-primary mt-3" >Save</button>
+        <button value="dft" type="button" onClick={handleSubmit} className="btn btn-primary mt-3" >Save</button>
+        <button value="sub" type="button" onClick={handleSubmit} className="btn btn-primary mt-3" >Submit</button>
     </form>
     )
 }
 
 export default ArticleEdit
-// export default withRouter(ArticleEdit)
-/*
-
-        <div>
-            <p>Category1: {story.category1}</p>
-            <p>Category2: {story.category2}</p>
-            <p>Category3: {story.category3}</p>
-            <p>Status: {story.phase}</p>
-        </div>        
-
-
-
-*/
-// Headline
-// Text
-// category1-3
-// photo1-3
-//phase (for later)
-
-//path /api_va/articles/pk/
-//
-// So what am I thinking?  A button next to each of your drafts that allows 
-// for editing.  When you do so, it opens the thing and auto-fills the form with
-// current values.
-
-// From the list page, a button to take you to a new page to fill out a new story
-// On the new story page, a button to "save as draft" or "submit"
-//
-//
-//  STEPS:
-// 1: Fetch the detail view.  Import that data as values into a form.
-// 2: Allow user to edit that data/make changes.
-// 3: Two buttons -- One "Saves" it as a draft, the other saves it, but also
-//      changes the phase to "submitted"
-//      Implementing this... one onSubmit function that has an if statement 
-//      checking target?  If button A, run function saveAsDraft, if button B,
-//      run function saveAsSubmit  When submitted, should kick user back out to
-//      My Stories page.
-//4: ... anything else?

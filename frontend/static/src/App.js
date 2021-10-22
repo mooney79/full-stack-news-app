@@ -49,7 +49,7 @@ function App() {
 
 
   async function fetchArticles(){
-    const response = await fetch('/api_v1/articles/');
+    const response = await fetch('/api_v1/articles/pub/');
     if (response.ok){
         const data = await response.json();
         test=data;
