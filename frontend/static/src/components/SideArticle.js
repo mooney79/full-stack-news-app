@@ -1,9 +1,13 @@
+
+
 function SideArticle(props){
     return (
-        <div className="sidebar-article">
-            <h3>I'm a short headline</h3>
-            I'm a Sidebar Article!
-        </div>
+        <aside className="sidebar-article" id={props.id}>
+            <h3>{props.headline}</h3>
+            <p>{props.text}</p>
+        </aside>
     )
 }
 export default SideArticle
+
+

@@ -28,8 +28,16 @@ function Navbar(props){
       }
     };
 
-
-
+    /*
+    async function fetchConArticles(){
+      const response = await fetch('/api_v1/articles/con/');
+      if (response.ok){
+          const data = await response.json();
+          test=data;
+          setArticles(test);
+      }
+    };
+    */
 
 
     if (props.isAuth === true){
@@ -46,7 +54,7 @@ function Navbar(props){
 
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+<nav className="navbar navbar-expand-lg navbar-light bg-light">
   <div className="container-fluid">
     <a className="navbar-brand" href="#">Site Navigation</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,26 +66,22 @@ function Navbar(props){
         <li className="nav-item mr-3">
           <NavLink to=''> Home </NavLink>
         </li>
-        <li className="nav-item mr-3">
+        {/* <li className="nav-item mr-3">
           <NavLink to='/profile'> Profile </NavLink>
+        </li> */}        
+        <li className="nav-item mr-3">
+          <NavLink to='/constories'> Conspiracies </NavLink>
         </li>
         <li className="nav-item mr-3">
-          {/* <NavLink to='/login'> Login </NavLink> */}
+          <NavLink to='/curstories'> Current Events </NavLink>
+        </li>
+        <li className="nav-item mr-3">
+          <NavLink to='/nrgstories'> Energy and Tech </NavLink>
+        </li>        
+        {staffPageLink}
+        <li className="nav-item mr-3">
           {logHTML}  
         </li>
-        {staffPageLink}
-        {/* <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div className="dropdown-menu">
-            <NavLink to='/profile'> Profile </NavLink>
-            <NavLink to='/login'> Login </NavLink>
-            {/* <a className="dropdown-item" href="#">Action</a>
-            <a className="dropdown-item" href="#">Another action</a>
-            <a className="dropdown-item" href="#">Something else here</a>
-            <div className="dropdown-divider"></div> *//*}
-            /* <a className="dropdown-item" href="#">Separated link</a>
-          </div>
-        </li> */}
       </ul>
       {/* <form className="d-flex">
         <input className="form-control me-sm-2" type="text" placeholder="Search" />

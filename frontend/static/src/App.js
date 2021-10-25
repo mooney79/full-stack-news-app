@@ -3,7 +3,7 @@ import Masthead from './components/Masthead';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar';
 import Page from './components/Page';
-import Profile from './components/Profile';
+// import Profile from './components/Profile';
 import { useState, useEffect } from 'react';
 import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
@@ -15,6 +15,9 @@ import Cookies from 'js-cookie';
 import MyStories from './components/MyStories';
 import ArticleEdit from './components/ArticleEdit';
 import ArticleNew from './components/ArticleNew';
+import PageCon from './components/PageCon';
+import PageCur from './components/PageCur';
+import PageNrg from './components/PageNrg';
 
 
 
@@ -45,9 +48,6 @@ function App() {
         console.log(pk)
     }
   }
-
-
-
 
   async function fetchArticles(){
     const response = await fetch('/api_v1/articles/pub/');
@@ -116,6 +116,27 @@ function App() {
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
         </PrivateRoute>
+        <Route path='/constories'>
+          <div className="wrapper">
+            <PageCon articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+        </Route>
+        <Route path='/curstories'>
+          <div className="wrapper">
+            <PageCur articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+        </Route>
+        <Route path='/nrgstories'>
+          <div className="wrapper">
+            <PageNrg articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+        </Route>
+
+
+
         <Route path='/login'>
           <LoginForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
         </Route>
@@ -151,23 +172,10 @@ function App() {
 export default withRouter(App);;
 
 /*
-Figure out WHY unauthorized users can't view any content!
-Potential culprits -- My user fetch, the backend view/queryset
-      checkAuth, checkStaff
-
-
-
   <Profile />
   <input type="textfield" value="Edit me, Seymour!"/>
 
 
-import RegistrationForm from '../Registration/RegistrationForm';
-import LoginForm from '../Login/LoginForm';
-import ProfileForm from '../Profile/ProfileForm';
-// import Cookies from 'js-cookie';
-import Header from '../Header/Header';
-
-  
 
   // CONDITIONAL RENDERING
   // let html;                   
@@ -183,3 +191,11 @@ import Header from '../Header/Header';
   // {/* <div className="row justify-content-center">
   //      {/* {html} */
   //     {/* </div> */}
+
+  /*
+  
+  For TONIGHT -- 
+  Photos
+  Sidebar
+  
+  */

@@ -1,7 +1,8 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .serializers import ArticleSerializer, UserSerializer
-from .models import Article, User
+from rest_framework.serializers import Serializer
+from .serializers import ArticleSerializer, BitesizeSerializer, UserSerializer
+from .models import Article, User, Bitesize
 # from django.shortcuts import get_object_or_404
 from .permissions import IsOwnerOrReadOnly 
 
@@ -52,6 +53,50 @@ class PersonalArticleList(generics.ListCreateAPIView):
         queryset = Article.objects.all()
         queryset = Article.objects.filter(author=self.request.user)
         return queryset
+
+class BitesizeAPIViewList(generics.ListCreateAPIView):
+    serializer_class = BitesizeSerializer
+    queryset = Bitesize.objects.all()
+
+
+class BitesizeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = BitesizeSerializer
+    # permission_classes = (IsOwnerOrReadOnly,)
+    
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Bitesize.objects.filter(id=pk)
+
+
+# class ArticleListConspiracyView(generics.ListCreateAPIView):
+#     serializer_class = ArticleSerializer
+#     permission_classes = (IsAuthenticatedOrReadOnly,)
+#     """Returns published Articles with category Conspiracy"""
+#     def is_conspiracy(self):
+#         if Article.object.category1 == 'con':
+#             return True
+#         elif Article.object.catgory2 == "con":
+#             return True
+#         elif Article.object.category3 == "con":
+#             return True
+#         else:
+#             return False
+
+#     def get_queryset(self):
+#         queryset = Article.objects.filter(self=is_Conspiracy())
+#         return queryset
+
+
+#         def myFunc(x):
+#   if x < 18:
+#     return False
+#   else:
+#     return True
+
+# adults = filter(myFunc, ages)
+
+# for x in adults:
+#   print(x)
     
     # class PurchaseList(generics.ListAPIView):
     # serializer_class = PurchaseSerializer

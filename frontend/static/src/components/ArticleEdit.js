@@ -56,8 +56,8 @@ function ArticleEdit(props){
     async function handleSubmit(event){
         event.preventDefault();
         const phase = event.target.value;
-        const story = {...story}
-        story.phase = phase;
+        const newstory = {...story}
+        newstory.phase = phase;
 
         const options = {
             method: 'PUT',
@@ -65,13 +65,14 @@ function ArticleEdit(props){
                 'Content-Type': 'application/json',
                 'X-CSRFToken': Cookies.get('csrftoken'),
             },
-            body: JSON.stringify(story)
+            body: JSON.stringify(newstory)
         };
 
         const response = await fetch(`/api_v1/articles/${props.articleID}/`, options);
         const data = await response.json();
         console.log('data', data);
         // setStory(data);
+        history.push('/mystories/');
     }
 
     return(
@@ -127,7 +128,7 @@ function ArticleEdit(props){
             </select>
         </div>       
 
-        <button value="dft" type="button" onClick={handleSubmit} className="btn btn-primary mt-3" >Save</button>
+        <button value="dft" type="button" onClick={handleSubmit} className="btn btn-primary mt-3" >Save and Quit</button>
         <button value="sub" type="button" onClick={handleSubmit} className="btn btn-primary mt-3" >Submit</button>
     </form>
     )

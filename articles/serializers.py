@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Article, User
+from .models import Article, User, Bitesize
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,4 +9,9 @@ class ArticleSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = ('__all__')
+
+class BitesizeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bitesize
         fields = ('__all__')

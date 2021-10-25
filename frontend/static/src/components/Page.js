@@ -26,10 +26,14 @@ function Page(props){
     // if (props.isStaff === true){
     //     testing = <h1>I AM STAFF!</h1>
     // }
+    
 
     let posts;
+    // let conPosts;
     if (props.articles !== {}){
+        // conPosts = props.articles.filter(post => post.category1 === "con" || post.category2 === "con" || post.category3 === "con")
         posts = props.articles.map(post => <Article key={post.id+9000} {...post} articles={props.articles} setArticles={props.setArticles} />)
+        // posts = conPosts.map(post => <Article key={post.id+9000} {...post} articles={props.articles} setArticles={props.setArticles} />)
         // console.log(props.articles)
         // posts = <p>Returning a value</p>
     } else {
