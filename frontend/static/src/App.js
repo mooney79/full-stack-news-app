@@ -18,6 +18,7 @@ import ArticleNew from './components/ArticleNew';
 import PageCon from './components/PageCon';
 import PageCur from './components/PageCur';
 import PageNrg from './components/PageNrg';
+import TestingPhotos from './components/Test'
 
 
 
@@ -44,8 +45,6 @@ function App() {
         const data = await response.json();
         pk = data.pk;
         setUser({pk: pk});
-        console.log(data);
-        console.log(pk)
     }
   }
 
@@ -68,18 +67,13 @@ function App() {
       const staff = await response.json();
       if (staff.is_staff === true){
       setIsStaff(true);
-      console.log(isStaff);
-      console.log(staff)
-      console.log(response);
     }}
   };
 
   useEffect(async () => {
     await fetchUser();
     await fetchArticles();
-    console.log(pk)
     await checkStaff();
-    console.log(user);
   }, [, isAuth]);
 
 
@@ -96,9 +90,6 @@ function App() {
     }
     checkAuth();
     fetchArticles();
-    console.log(articles);
-    // checkStaff();
-    console.log(user);
   }, [history, isStaff, user])
 
   if (isAuth === null){
@@ -131,6 +122,13 @@ function App() {
         <Route path='/nrgstories'>
           <div className="wrapper">
             <PageNrg articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+        </Route>
+
+        <Route path='/test'>
+          <div className="wrapper">
+            <TestingPhotos articles={articles} setArticles={setArticles} isStaff={isStaff}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
         </Route>

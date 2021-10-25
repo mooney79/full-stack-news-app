@@ -5,8 +5,7 @@ import './Navbar.css'
 function Navbar(props){
     let logHTML;
     let staffPageLink;
-    console.log(props)
-
+    
     const handleLogout = async () => {
       const options = {
         method: 'POST',
@@ -66,9 +65,9 @@ function Navbar(props){
         <li className="nav-item mr-3">
           <NavLink to=''> Home </NavLink>
         </li>
-        {/* <li className="nav-item mr-3">
+         {/* <li className="nav-item mr-3">
           <NavLink to='/profile'> Profile </NavLink>
-        </li> */}        
+        </li>          */}
         <li className="nav-item mr-3">
           <NavLink to='/constories'> Conspiracies </NavLink>
         </li>

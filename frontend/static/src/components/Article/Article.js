@@ -6,37 +6,57 @@ function Article(props){
     const [open, setOpen] = useState(true);
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
+    console.log(props);
     // setOpen(true);
 
     let articleHTML;                           // TEST (!!props.article.photo3)
-    if (false){              //Set proper styling for each case
-        articleHTML =                       //Then insert className's into these
-        <article>                       
-             <div className="photo1-3-photo-layout">Image1</div>
-             <div className="photo2-3-photo-layout">Image2</div>
-             <div className="photo3-3-photo-layout">Image3</div>
-            <h2>I'm a bigger headline that stretches across the page!</h2>
-            <p>  I'm an article! Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fuga magni enim quia harum hic quas a quasi, tempora laborum iusto accusamus animi doloremque, culpa, eos nulla voluptas quisquam quo!</p>
-          
-        </article>
-    } else if (false){         //// TEST (!!props.article.photo2)
+    if (props.photo3 !== null){              //Set proper styling for each case
         articleHTML =    
-        <article>
-            <div className="photo1-2-photo-layout">Image1</div>
-            <h2>I'm a bigger headline that stretches across the page!</h2>
-            <div className="photo2-2-photo-layout">Image2</div>
-            <p>  I'm an article! Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fuga magni enim quia harum hic quas a quasi, tempora laborum iusto accusamus animi doloremque, culpa, eos nulla voluptas quisquam quo!</p>
+        <article id="{props.id}">
+            <img src={props.photo1} className="photo1-3-photo-layout" />
+            <div className="headwrap">
+                <h2>{props.headline}</h2>
+                <button id="read-button" onClick={handleClick}>Read More</button>
+                <img src={props.photo2} className="photo2-3-photo-layout" />
+            </div>
+            <p>{props.text}</p>      
+            <img src={props.photo3} className="photo3-3-photo-layout" />      
         </article>
-    } else if (false){         //// //// TEST (!!props.article.photo2)
+    } else if (false) {//(props.photo2 !== null){         //// TEST (!!props.article.photo2)
+        articleHTML =    
+        <article id="{props.id}" className="two-photo">
+            {/* <div className="two-photo-wrap"> */}
+                <div className="headwrap">
+                    <img src={props.photo1} className="photo1-2-photo-layout" />
+                    <h2>{props.headline}</h2>
+                    <button id="read-button" onClick={handleClick}>Read More</button>                
+                </div>
+                <div className="wrapping">
+                    <p>{props.text}</p> 
+                    <div className="floated-right">
+                        <img src={props.photo2} className="photo2-2-photo-layout" />
+                    </div>
+                    
+                {/* </div> */}
+            </div>
+                       
+        </article>
+    } else if (props.photo1 !== null){         //// //// TEST (!!props.article.photo1)
         
         articleHTML =    
-        <article>
-             <div className="photo1-1-photo-layout">Image1</div>
-            <h2>I'm a bigger headline that stretches across the page!</h2>
-            <p>  I'm an article! Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fuga magni enim quia harum hic quas a quasi, tempora laborum iusto accusamus animi doloremque, culpa, eos nulla voluptas quisquam quo!</p>
+        <article id="{props.id}" className="one-photo">
+            <div className="headwrap">
+                <h2 className="stuff">{props.headline}</h2>
+                <button id="read-button" onClick={handleClick}>Read More</button>                
+            </div>
+            <div className="photo-wrap">
+                <img src={props.photo1} className="photo1-1-photo-layout" />                                 
+                <p>{props.text}</p>
+            </div>
         </article>
     } else {
         // console.log(props);
+        //<img src={props.photo1} className="photo1-1-photo-layout" />
         // let article_id = props.id;
 
         articleHTML =
@@ -45,7 +65,7 @@ function Article(props){
                 <h2>{props.headline}</h2>
                 <button id="read-button" onClick={handleClick}>Read More</button>
             </div>
-            <p>{props.text}</p>
+            <p>{props.text}</p>            
         </article>
     }
 
@@ -55,9 +75,11 @@ function Article(props){
         // const art = document.getElementById(`${artID}`);
         if (open===true){    
             artID.style.maxHeight='500vh';
+            // artID.style.lineClamp='none';
             event.target.innerHTML="Read Less"
         } else {
-            artID.style.maxHeight='20vh';
+            artID.style.maxHeight='25vh';
+            // artID.style.lineClamp='5';
             event.target.innerHTML="Read More"
         }
         // forceUpdate();
@@ -67,7 +89,7 @@ function Article(props){
     //     console.log('Forcing re-render')
     // },[open]);
 
-
+//  <img src={props.photo1} className="photo1-1-photo-layout" />
 
     return (
     <>
@@ -160,5 +182,5 @@ render(<Example />);
 
 
 
-
     */
+

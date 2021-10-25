@@ -29,24 +29,11 @@ function Page(props){
     
 
     let posts;
-    // let conPosts;
     if (props.articles !== {}){
-        // conPosts = props.articles.filter(post => post.category1 === "con" || post.category2 === "con" || post.category3 === "con")
         posts = props.articles.map(post => <Article key={post.id+9000} {...post} articles={props.articles} setArticles={props.setArticles} />)
-        // posts = conPosts.map(post => <Article key={post.id+9000} {...post} articles={props.articles} setArticles={props.setArticles} />)
-        // console.log(props.articles)
-        // posts = <p>Returning a value</p>
     } else {
         posts = <> <Spinner animation="grow" variant='primary' /><p>Loading...</p></>
     }
-    
-    // return(
-    //     <div className="article col-10">
-    //         {posts}
-    //     </div>
-
-    // props.articles.filter()
-
 
 
     return (

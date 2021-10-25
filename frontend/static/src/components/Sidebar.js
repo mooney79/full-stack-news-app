@@ -10,7 +10,6 @@ function Sidebar(props){
         if (response.ok){
             const data = await response.json();
             const test=data;
-            console.log(data)
             setBitesize(test);
         }
       };

@@ -1,12 +1,14 @@
 article{
-    max-height: 20vh;
+    /* max-height: 25vh; */
     /* position: relative; */
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
     display: flex;
     flex-direction: column;
     /* justify-content: space-between; */
     align-content: flex-start;
     margin-bottom: 16px;
+    min-height: 25vh;
+    /* text-overflow: ellipsis; */
 }
 
 button{
@@ -19,9 +21,147 @@ button{
     /* margin-top: 8px;
     margin-left: 8px; */
     /* clear: both; */
+    max-height: 50px;
 }
 
 .headwrap{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 } 
+
+
+.photo1-3-photo-layout{
+    width: 100%;
+    /* height: auto; */
+    height: 360px;
+    border: 10px purple solid;
+    /* float: right; */
+  }
+  
+  .photo2-3-photo-layout{
+    width: 20%;
+    /* height: auto; */
+    height: 240px;
+    border: 1px purple solid;
+    float: left;
+    margin-right: 16px;
+  }
+  
+  .photo3-3-photo-layout{
+    width: 30%;
+    height: 180px;
+    border: 1px purple solid;
+    float: right;
+  }
+  
+  .photo1-2-photo-layout{
+    width: 360px;
+    height: auto;
+    border: 1px black solid;
+    border-radius: 8px;
+    /* margin-left: 16px; */
+    float: left;
+    /* top: 0%;
+    left: 0%; 
+    position: absolute; */
+    
+  }
+  
+  .photo2-2-photo-layout{
+    width: 25%;
+    height: auto;
+    border: 1px black solid;
+    /* float: right;
+    position: absolute;
+    top: 50px;
+    right: 0%; */
+    border-radius: 8px;
+    /* display: inline-block; */
+    float: right;
+  }
+  
+  .photo1-1-photo-layout{
+    width: 360px;
+    height: auto;
+    border: 1px black solid;
+    border-radius: 8px;
+    /* margin-left: 16px; */
+    float: right;
+    /* top: 0%;
+    left: 0%; 
+    position: absolute; */
+    
+  }
+/*
+  .one-photo{
+    position: relative;
+    margin-left: 30%; 
+      
+  } 
+
+  .one-photo h2{
+      margin-left: 30%;
+  }
+
+  .one-photo p{
+      margin-left: 30%;
+      font-size: 1.1rem;
+      height: 33%;
+      line-clamp: 5;
+  }*/
+
+  .two-photo{
+      /* position: relative; */
+  }
+
+  .two-photo h2{
+    /* margin-left: 30%; */
+}
+
+.two-photo p{
+    /* margin-left: 30%;
+    font-size: 1.1rem;
+    height: 33%; */
+    /* margin-right: 26%; */
+}
+
+.floated-right{
+    /* float: right; */
+    margin: 8px;
+}
+  
+.wrapping{
+    /* border: 1px purple solid; */
+    /* display: inline-block; */
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: row; */
+    display: inline;
+}
+
+
+/*
+#container{
+    width: 400px;
+    background: yellow;
+}
+#floated{
+    float: left;
+    width: 150px;
+    background: red;
+}
+
+
+<div id="container">
+    <div id="floated">
+        Stuff on "top"
+    </div>
+    stuff floated around
+</div>
+
+
+
+
+
+*/

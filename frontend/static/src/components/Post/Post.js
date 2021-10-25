@@ -1,6 +1,7 @@
 import './Post.css';
 // import Collapse from 'react-bootstrap/Collapse'
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
+//useEffect, useCallback
 import Badge from 'react-bootstrap/Badge'
 import { useHistory } from 'react-router-dom';
 
@@ -25,7 +26,9 @@ function Post(props){
             break;
         case 'dft':
             phaseDesc = 'Draft';
-            break;
+            break
+        default:
+            console.log('Error -- Article phase unrecognized.')
     }
 
     let editButton;
