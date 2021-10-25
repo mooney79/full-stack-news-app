@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1:3000', 'localhost:3000', '127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1:3000', 'localhost:3000', '127.0.0.1', 'full-stack-news-app-mooney79.herokuapp.com',]
 
 
 # Application definition
