@@ -10,6 +10,9 @@ class ArticleListAPIView(generics.ListCreateAPIView):
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class ArticleDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ArticleSerializer
@@ -18,6 +21,9 @@ class ArticleDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         return Article.objects.filter(id=pk)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 class UserListAPIView(generics.ListCreateAPIView):
     queryset = User.objects.all()

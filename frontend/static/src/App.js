@@ -14,6 +14,7 @@ import LoginForm from './components/Login/LoginForm'
 import Cookies from 'js-cookie';
 import MyStories from './components/MyStories';
 import ArticleEdit from './components/ArticleEdit';
+import ArticleNew from './components/ArticleNew';
 
 
 
@@ -118,8 +119,11 @@ function App() {
         <Route path='/login'>
           <LoginForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
         </Route>
-        <Route path='/edit'>
+        <PrivateRoute path='/edit' isStaff={isStaff}>
           <ArticleEdit user={user} articleID={articleID}/>
+        </PrivateRoute>
+        <Route path='/new' isStaff={isStaff}>
+          <ArticleNew user={user}/>
         </Route>
         <Route path='/register'>
           <RegistrationForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>

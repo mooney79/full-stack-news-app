@@ -1,9 +1,12 @@
 import Post from './Post/Post';
 import { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import { useHistory } from 'react-router-dom';
 
 function MyStories(props){
     const [myStories, setMyStories] = useState([]);
+    const history = useHistory();
+  
     let test;
 
     async function fetchMyStories(){
@@ -28,7 +31,9 @@ function MyStories(props){
         myPosts = <> <Spinner animation="grow" variant='primary' /><p>Loading...</p></>
     }
     
-  
+    function handleClick(){
+      history.push('/new');
+    }
    
 
 
@@ -41,6 +46,7 @@ function MyStories(props){
             </div>
             <div>
                 {myPosts}
+                <button onClick={handleClick}>Create New Article</button>
             </div>
         </div>
     )

@@ -4,20 +4,20 @@ import { useHistory } from 'react-router-dom';
 // import { withRouter} from 'react-router-dom';
 
 
-function ArticleEdit(props){
+function ArticleNew(props){
     const [story, setStory] = useState({submit: 0});
     const history = useHistory();
 
-    async function fetchArticleDetail(){
-        if (props.articleID === 0){
-            history.push('/mystories/'); 
-        }
-        const response = await fetch(`/api_v1/articles/${props.articleID}/`);
-        if (response.ok){
-            const data = await response.json();
-            setStory({...story, ...data});
-        }
-    };
+    // async function fetchArticleDetail(){
+    //     if (props.articleID === 0){
+    //         history.push('/mystories/'); 
+    //     }
+    //     const response = await fetch(`/api_v1/articles/${props.articleID}/`);
+    //     if (response.ok){
+    //         const data = await response.json();
+    //         setStory({...story, ...data});
+    //     }
+    // };
 
     function handleInput(event) {
         const {name, value} = event.target;
@@ -27,51 +27,36 @@ function ArticleEdit(props){
         }))
     }
 
-    useEffect(() => {
-        fetchArticleDetail();
-    }, [])
-
     // useEffect(() => {
-    //     if(story.submit) {
-    //         async function postData() {
-    //             const options = {
-    //                 method: 'PUT',
-    //                 headers:{
-    //                     'Content-Type': 'application/json',
-    //                     'X-CSRFToken': Cookies.get('csrftoken'),
-    //                 },
-    //                 body: JSON.stringify(story)
-    //             };
-    //             const response = await fetch(`/api_v1/articles/${props.articleID}/`, options);
-    //             const data = await response.json();
-    //             console.log('data', data);
-    //             history.push('/mystories/');
-    //         };
+    //     fetchArticleDetail();
+    // }, [])
 
-    //         postData();
+    useEffect(() => {
+        if(story.submit) {
+            async function postData() {
+                const options = {
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': Cookies.get('csrftoken'),
+                    },
+                    body: JSON.stringify(story)
+                };
+                const response = await fetch(`/api_v1/articles/`, options);
+                const data = await response.json();
+                console.log('data', data);
+                history.push('/mystories/');
+            };
+
+            postData();
            
-    //     }
-    // }, [story.submit]);
+        }
+    }, [story.submit]);
 
     async function handleSubmit(event){
         event.preventDefault();
         const phase = event.target.value;
-        const story = {...story}
-        story.phase = phase;
-
-        const options = {
-            method: 'PUT',
-            headers:{
-                'Content-Type': 'application/json',
-                'X-CSRFToken': Cookies.get('csrftoken'),
-            },
-            body: JSON.stringify(story)
-        };
-
-        const response = await fetch(`/api_v1/articles/${props.articleID}/`, options);
-        const data = await response.json();
-        console.log('data', data);
-        // setStory(data);
+        setStory({ ...story, phase, submit: story.submit + 1 });
     }
 
     return(
@@ -133,4 +118,4 @@ function ArticleEdit(props){
     )
 }
 
-export default ArticleEdit
+export default ArticleNew
