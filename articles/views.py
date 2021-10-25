@@ -57,10 +57,12 @@ class PersonalArticleList(generics.ListCreateAPIView):
 class BitesizeAPIViewList(generics.ListCreateAPIView):
     serializer_class = BitesizeSerializer
     queryset = Bitesize.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 class BitesizeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BitesizeSerializer
+
     # permission_classes = (IsOwnerOrReadOnly,)
     
     def get_queryset(self):
