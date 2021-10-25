@@ -163,7 +163,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 SITE_ID = 1
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend/static')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'frontend/static/build/static'),)
 
