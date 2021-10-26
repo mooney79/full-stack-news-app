@@ -54,6 +54,8 @@ class PersonalArticleList(generics.ListCreateAPIView):
         queryset = Article.objects.filter(author=self.request.user)
         return queryset
 
+
+
 class BitesizeAPIViewList(generics.ListCreateAPIView):
     serializer_class = BitesizeSerializer
     queryset = Bitesize.objects.all()
@@ -68,6 +70,45 @@ class BitesizeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         return Bitesize.objects.filter(id=pk)
+
+
+
+class PersonalDraftsList(generics.ListCreateAPIView):
+    serializer_class = ArticleSerializer
+    """Returns Drafts written by User"""
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        queryset = Article.objects.filter(author=self.request.user)
+        queryset = Article.objects.filter(phase='dft')
+        return queryset
+
+class PersonalSubsList(generics.ListCreateAPIView):
+    serializer_class = ArticleSerializer
+    """Returns Submitted written by User"""
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        queryset = Article.objects.filter(author=self.request.user)
+        queryset = Article.objects.filter(phase='sub')
+        return queryset
+
+class PersonalPubsList(generics.ListCreateAPIView):
+    serializer_class = ArticleSerializer
+    """Returns Published written by User"""
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        queryset = Article.objects.filter(author=self.request.user)
+        queryset = Article.objects.filter(phase='pub')
+        return queryset
+
+class PersonalRejList(generics.ListCreateAPIView):
+    serializer_class = ArticleSerializer
+    """Returns Rej written by User"""
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        queryset = Article.objects.filter(author=self.request.user)
+        queryset = Article.objects.filter(phase='rej')
+        return queryset
+
 
 
 # class ArticleListConspiracyView(generics.ListCreateAPIView):

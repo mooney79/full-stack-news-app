@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import { useHistory } from 'react-router-dom';
 
-function MyStories(props){
+function MySubs(props){
     const [myStories, setMyStories] = useState([]);
     const history = useHistory();
   
     let test;
 
     async function fetchMyStories(){
-        const response = await fetch('/api_v1/articles/personal/');
+        const response = await fetch('/api_v1/articles/personal/sub/');
         if (response.ok){
             const data = await response.json();
             test=data;
@@ -25,7 +25,10 @@ function MyStories(props){
     
   
     let myPosts;
+    let mySubmits;
     if (myStories !== []){
+        // mySubmits = props.articles.filter(post => post.phase === "sub");
+        // myPosts = mySubmits.map(post => <Post key={post.id+8000} {...post} articles={props.articles} setArticles={props.setArticles} setArticleID={props.setArticleID}/>)
         myPosts = myStories.map(post => <Post key={post.id+8000} {...post} articles={props.articles} setArticles={props.setArticles} setArticleID={props.setArticleID}/>)
     } else {
         myPosts = <> <Spinner animation="grow" variant='primary' /><p>Loading...</p></>
@@ -51,7 +54,7 @@ function MyStories(props){
         </div>
     )
 }
-export default MyStories
+export default MySubs
 
 // Add a NEW STORY button, and implement it
 

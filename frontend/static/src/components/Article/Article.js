@@ -3,7 +3,7 @@ import './Article.css';
 import { useState, useEffect, useCallback } from 'react';
 
 function Article(props){
-    const [open, setOpen] = useState(true);
+    // const [open, setOpen] = useState(true);
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
     console.log(props);
@@ -44,10 +44,10 @@ function Article(props){
     } else if (props.photo1 !== null){         //// //// TEST (!!props.article.photo1)
         
         articleHTML =    
-        <article id="{props.id}" className="one-photo">
+        <article id="{props.id}" className="one-photo article-wrap">
             <div className="headwrap">
                 <h2 className="stuff">{props.headline}</h2>
-                <button id="read-button" onClick={handleClick}>Read More</button>                
+                <button className=" read-button read-button-photo" onClick={handleClick}>Read More</button>                
             </div>
             <div className="photo-wrap">
                 <img src={props.photo1} className="photo1-1-photo-layout" />                                 
@@ -60,28 +60,48 @@ function Article(props){
         // let article_id = props.id;
 
         articleHTML =
-        <article id="{props.id}">
+        <article id="{props.id}" className="article-wrap">
             <div className="headwrap">
                 <h2>{props.headline}</h2>
-                <button id="read-button" onClick={handleClick}>Read More</button>
+                <button className="read-button" onClick={handleClick}>Read More</button>
             </div>
             <p>{props.text}</p>            
         </article>
     }
 
     function handleClick(event){
-        setOpen(!open);
+       
         const artID = event.target.parentElement.parentElement; //.id;
         // const art = document.getElementById(`${artID}`);
-        if (open===true){    
+        // setOpen(!open);
+        // console.log(open);
+        if (event.currentTarget.innerHTML==="Read More"){ 
+        //(open===true){
+            // console.log(open);
+            // setOpen(!open);
+            let articles=[...document.getElementsByClassName("article-wrap")];
+            articles.forEach(article => {article.style.maxHeight='25vh'});    
             artID.style.maxHeight='500vh';
+            let morebuttons=[...document.getElementsByClassName("read-button")];
+            morebuttons.forEach(rbutton => {rbutton.innerHTML='Read More'});
+            // morebuttons.forEach(rbutton => {rbutton.style.backgroundColor='red'});
             // artID.style.lineClamp='none';
             event.target.innerHTML="Read Less"
+            // console.log(open);
+            // setOpen(!open);
+            // console.log(open);
+            //if (event.currentTarget.innerHTML==="Read More"){
         } else {
+            // console.log(open);
+            // setOpen(!open);
             artID.style.maxHeight='25vh';
             // artID.style.lineClamp='5';
             event.target.innerHTML="Read More"
+            // console.log(open);
+            // setOpen(true);
+            // console.log(open);
         }
+        // setOpen(!open);
         // forceUpdate();
     }
 

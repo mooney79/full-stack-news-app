@@ -23,7 +23,9 @@ function Navbar(props){
         const data = await response.json();
         Cookies.remove('Authorization');
         props.setIsAuth(false);
+        props.setIsStaff(false);
         props.setUser(4);
+        // props.setIsStaff(false);
       }
     };
 
@@ -46,7 +48,19 @@ function Navbar(props){
     }
 
     if (props.isStaff === true) {
-      staffPageLink = <li className="nav-item mr-3"> <NavLink to='/mystories'> My Stories </NavLink></li>
+      staffPageLink = <><li className="nav-item mr-3"> <NavLink to='/mystories'> My Stories </NavLink></li>
+          <li className="nav-item mr-3">
+            <NavLink to='/mydfts'> Drafts </NavLink>
+          </li>
+          <li className="nav-item mr-3">
+            <NavLink to='/mysubs'> Submitted </NavLink>
+          </li>
+          <li className="nav-item mr-3">
+            <NavLink to='/mypubs'> Published </NavLink>
+          </li>
+          <li className="nav-item mr-3">
+            <NavLink to='/myrejs'> Rejected </NavLink>
+          </li></>
     } else {
       staffPageLink=<></>
     }
@@ -54,33 +68,37 @@ function Navbar(props){
 
     return (
 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <div className="container-fluid">
-    <a className="navbar-brand" href="#">Site Navigation</a>
+  <div className="container-fluid text-center">
+    {/* <a className="navbar-brand" href="#">Site Navigation</a> */}
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
 
     <div className="collapse navbar-collapse" id="navbarColor03">
-      <ul className="navbar-nav me-auto">
-        <li className="nav-item mr-3">
-          <NavLink to=''> Home </NavLink>
-        </li>
-         {/* <li className="nav-item mr-3">
-          <NavLink to='/profile'> Profile </NavLink>
-        </li>          */}
-        <li className="nav-item mr-3">
-          <NavLink to='/constories'> Conspiracies </NavLink>
-        </li>
-        <li className="nav-item mr-3">
-          <NavLink to='/curstories'> Current Events </NavLink>
-        </li>
-        <li className="nav-item mr-3">
-          <NavLink to='/nrgstories'> Energy and Tech </NavLink>
-        </li>        
-        {staffPageLink}
-        <li className="nav-item mr-3">
-          {logHTML}  
-        </li>
+      <ul className="navbar-nav me-auto justify-content-center">
+        <div className="to-left">
+          <li className="nav-item mr-3">
+            <NavLink to=''> Home </NavLink>
+          </li>
+          {/* <li className="nav-item mr-3">
+            <NavLink to='/profile'> Profile </NavLink>
+          </li>          */}
+          <li className="nav-item mr-3">
+            <NavLink to='/constories'> Conspiracies </NavLink>
+          </li>
+          <li className="nav-item mr-3">
+            <NavLink to='/curstories'> Current Events </NavLink>
+          </li>
+          <li className="nav-item mr-3">
+            <NavLink to='/nrgstories'> Energy and Tech </NavLink>
+          </li>          
+        </div>
+        <div className="to-right">        
+          {staffPageLink}
+          <li className="nav-item mr-3">
+            {logHTML}  
+          </li>
+        </div>
       </ul>
       {/* <form className="d-flex">
         <input className="form-control me-sm-2" type="text" placeholder="Search" />

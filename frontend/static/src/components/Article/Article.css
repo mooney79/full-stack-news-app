@@ -140,6 +140,18 @@ button{
     display: inline;
 }
 
+.article-wrap{
+  position: relative;
+}
+
+.read-button{
+  float: right;
+}
+
+.read-button-photo{
+  float: right;
+}
+
 
 /*
 #container{
@@ -160,6 +172,15 @@ button{
     stuff floated around
 </div>
 
+.article-wrap{
+  position: relative;
+}
+
+.read-button{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 
 
 

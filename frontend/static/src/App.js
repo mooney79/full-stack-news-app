@@ -19,6 +19,10 @@ import PageCon from './components/PageCon';
 import PageCur from './components/PageCur';
 import PageNrg from './components/PageNrg';
 import TestingPhotos from './components/Test'
+import MySubs from './components/MySubs';
+import MyPubs from './components/MyPubs';
+import MyDfts from './components/MyDfts';
+import MyRejs from './components/MyRejs';
 
 
 
@@ -99,14 +103,38 @@ function App() {
   return (
     <div className="App">
       <Masthead />
-      <Navbar isAuth={isAuth} setIsAuth={setIsAuth} user={user} isStaff={isStaff} setUser={setUser}/>
+      <Navbar isAuth={isAuth} setIsAuth={setIsAuth} user={user} isStaff={isStaff} setUser={setUser} setIsStaff={setIsStaff}/>
       <Switch>
       <PrivateRoute path='/mystories' isStaff={isStaff}>
           <div className="wrapper">
             <MyStories articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
-        </PrivateRoute>
+      </PrivateRoute>
+      <PrivateRoute path='/mydfts' isStaff={isStaff}>
+          <div className="wrapper">
+            <MyDfts articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+      </PrivateRoute>
+      <PrivateRoute path='/mypubs' isStaff={isStaff}>
+          <div className="wrapper">
+            <MyPubs articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+      </PrivateRoute>
+      <PrivateRoute path='/mysubs' isStaff={isStaff}>
+          <div className="wrapper">
+            <MySubs articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+      </PrivateRoute>
+      <PrivateRoute path='/myrejs' isStaff={isStaff}>
+          <div className="wrapper">
+            <MyRejs articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+      </PrivateRoute>
         <Route path='/constories'>
           <div className="wrapper">
             <PageCon articles={articles} setArticles={setArticles} isStaff={isStaff}/>
@@ -125,13 +153,13 @@ function App() {
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
         </Route>
-
+{/* 
         <Route path='/test'>
           <div className="wrapper">
             <TestingPhotos articles={articles} setArticles={setArticles} isStaff={isStaff}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
-        </Route>
+        </Route> */}
 
 
 

@@ -2,11 +2,26 @@ li{
     margin: 16px;
 }
 
-/* ul{
+ul{
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    align-content: space-between;
+    width: 100%;
 }
 
+.to-left{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.to-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+/* 
 div{
     display: inline-flex;
 } */

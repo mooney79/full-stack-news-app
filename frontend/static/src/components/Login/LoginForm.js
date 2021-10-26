@@ -20,8 +20,6 @@ function LoginForm(props){
     function handleError(err){
         console.warn(err);
     }
-
-//handle on-click to switch selection to "register" -- unbuilt
     
     async function handleSubmit(event) {
         event.preventDefault();
@@ -50,7 +48,7 @@ function LoginForm(props){
     } //Could flip it to protect "profileForm" and redirect them to login
 
     return(
-
+        <>
         <form className="mt-3 col-6" onSubmit={handleSubmit} >
             <div className="form-group text-left mb-3">
                 <label htmlFor='username'>Username</label>
@@ -76,10 +74,10 @@ function LoginForm(props){
                     value={userLog.password1}
                 />
             </div>
-            <button type="submit" className="btn btn-primary mt-3" >Log in</button>
-            <button type="click" className="btn btn-primary mt-3" >Register</button>
+            <button type="submit" className="btn btn-primary mt-3" >Log in</button>            
         </form>
-
+        <p className="text-center">Not  a member?  Click <a href="/register">here</a> to register.</p>
+        </>
     )
 
 }

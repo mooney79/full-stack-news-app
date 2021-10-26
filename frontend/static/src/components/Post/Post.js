@@ -7,25 +7,30 @@ import { useHistory } from 'react-router-dom';
 
 function Post(props){
     const history = useHistory();
-    const [open, setOpen] = useState(true);
+    // const [open, setOpen] = useState(true);
     // const [, updateState] = useState();
     // const forceUpdate = useCallback(() => updateState({}), []);
     // setOpen(true);
 
     let articleHTML;                           // TEST (!!props.article.photo3)
     let phaseDesc;
+    let phaseClass;
     switch(props.phase){
         case 'sub':
             phaseDesc = 'Submitted';
+            phaseClass = 'badge-sub';
             break;
         case 'pub':
             phaseDesc = 'Published';
+            phaseClass = 'badge-pub';
             break;
         case 'rej':
             phaseDesc = 'Rejected';
+            phaseClass = 'badge-rej';
             break;
         case 'dft':
             phaseDesc = 'Draft';
+            phaseClass = 'badge-dft';
             break
         default:
             console.log('Error -- Article phase unrecognized.')
@@ -87,33 +92,33 @@ function Post(props){
         // let article_id = props.id;
 
         articleHTML =
-        <article id={props.id}>
+        <article id={props.id} className="article-wrap">
             <div className="headwrap">
                 <div className="badgewrap">
-                <h2>{props.headline}</h2><Badge className="badge">{phaseDesc}</Badge>
+                <h2>{props.headline}</h2><Badge className="badge" className={phaseClass}>{phaseDesc}</Badge>
                 </div>
                 <div className="buttonDiv">
                     {editButton}
-                    <button id="read-button" onClick={handleClick}>Read More</button>                  
+                    <button className="read-button" onClick={handleClick}>Read More</button>                  
                 </div>
             </div>
             <p>{props.text}</p>
         </article>
     }
 
-
     function handleClick(event){
-        setOpen(!open);
         const artID = event.target.parentElement.parentElement.parentElement; //.id;
-        // const art = document.getElementById(`${artID}`);
-        if (open===true){    
+        if (event.target.innerHTML==="Read More"){ 
+            let articles=[...document.getElementsByClassName("article-wrap")];
+            articles.forEach(article => {article.style.maxHeight='25vh'});    
             artID.style.maxHeight='500vh';
+            let morebuttons=[...document.getElementsByClassName("read-button")];
+            morebuttons.forEach(rbutton => {rbutton.innerHTML='Read More'});
             event.target.innerHTML="Read Less"
         } else {
-            artID.style.maxHeight='20vh';
+            artID.style.maxHeight='25vh';
             event.target.innerHTML="Read More"
         }
-        // forceUpdate();
     }
 
     function handleEditClick(event){
