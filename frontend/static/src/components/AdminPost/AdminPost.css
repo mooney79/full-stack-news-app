@@ -1,0 +1,25 @@
+article{
+    max-height: 20vh;
+    /* position: relative; */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-content: flex-start;
+    margin-bottom: 16px;
+}
+
+button{
+    /* position: absolute; */
+    /* bottom: 0; */
+    /* right: 0; */
+    display: inline-block;
+    /* margin-top: 8px;
+    margin-left: 8px; */
+    /* clear: both; */
+}
+
+.headwrap{
+    display: flex;
+    justify-content: space-between;
+} 

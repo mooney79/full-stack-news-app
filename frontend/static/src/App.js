@@ -8,12 +8,14 @@ import { useState, useEffect } from 'react';
 import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
 import ProfileForm from './components/ProfileForm'
 import RegistrationForm from './components/RegistrationForm'
 import LoginForm from './components/Login/LoginForm'
 import Cookies from 'js-cookie';
 import MyStories from './components/MyStories';
 import ArticleEdit from './components/ArticleEdit';
+import AdminEdit from './components/AdminEdit';
 import ArticleNew from './components/ArticleNew';
 import PageCon from './components/PageCon';
 import PageCur from './components/PageCur';
@@ -23,6 +25,10 @@ import MySubs from './components/MySubs';
 import MyPubs from './components/MyPubs';
 import MyDfts from './components/MyDfts';
 import MyRejs from './components/MyRejs';
+import AllSubs from './components/AllSubs';
+import AllPubs from './components/AllPubs';
+import AllDfts from './components/AllDfts';
+import AllRejs from './components/AllRejs';
 
 
 
@@ -30,6 +36,7 @@ function App() {
   const [articles, setArticles] = useState([{headline: '', text: ''}]);
   const [isAuth, setIsAuth] = useState(null);
   const [isStaff, setIsStaff] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
   const [user, setUser] = useState({pk: 4});
   const [articleID, setArticleID] = useState(0);
   let test;
@@ -65,13 +72,18 @@ function App() {
     const response = await fetch(`/api_v1/articles/users/${pk}/`);
     if (!response.ok) {
       setIsStaff(false);
+      setIsAdmin(false);
       console.log(isStaff);
       console.log(response);
     } else {
       const staff = await response.json();
       if (staff.is_staff === true){
-      setIsStaff(true);
-    }}
+        setIsStaff(true);
+      }
+      if (staff.is_superuser === true){
+        setIsAdmin(true);
+      }
+    }
   };
 
   useEffect(async () => {
@@ -103,53 +115,94 @@ function App() {
   return (
     <div className="App">
       <Masthead />
-      <Navbar isAuth={isAuth} setIsAuth={setIsAuth} user={user} isStaff={isStaff} setUser={setUser} setIsStaff={setIsStaff}/>
+      <Navbar isAuth={isAuth} setIsAuth={setIsAuth} user={user} isStaff={isStaff} setUser={setUser} setIsStaff={setIsStaff} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
       <Switch>
-      <PrivateRoute path='/mystories' isStaff={isStaff}>
+      <PrivateRoute path='/mystories' isStaff={isStaff} isAdmin={isAdmin}>
           <div className="wrapper">
-            <MyStories articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
+            <MyStories articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin} setArticleID={setArticleID}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
       </PrivateRoute>
-      <PrivateRoute path='/mydfts' isStaff={isStaff}>
+      <PrivateRoute path='/mydfts' isStaff={isStaff} isAdmin={isAdmin}>
           <div className="wrapper">
-            <MyDfts articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
+            <MyDfts articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin} setArticleID={setArticleID}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
       </PrivateRoute>
-      <PrivateRoute path='/mypubs' isStaff={isStaff}>
+      <PrivateRoute path='/mypubs' isStaff={isStaff} isAdmin={isAdmin}>
           <div className="wrapper">
-            <MyPubs articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
+            <MyPubs articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin} setArticleID={setArticleID}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
       </PrivateRoute>
-      <PrivateRoute path='/mysubs' isStaff={isStaff}>
+      <PrivateRoute path='/mysubs' isStaff={isStaff} isAdmin={isAdmin}>
           <div className="wrapper">
-            <MySubs articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
+            <MySubs articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin} setArticleID={setArticleID}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
       </PrivateRoute>
       <PrivateRoute path='/myrejs' isStaff={isStaff}>
           <div className="wrapper">
-            <MyRejs articles={articles} setArticles={setArticles} isStaff={isStaff} setArticleID={setArticleID}/>
+            <MyRejs articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin} setArticleID={setArticleID}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
       </PrivateRoute>
+
+      <AdminRoute path='/alldfts' isStaff={isStaff} isAdmin={isAdmin}>
+          <div className="wrapper">
+            <AllDfts articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin} setArticleID={setArticleID}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+      </AdminRoute>
+      <AdminRoute path='/allpubs' isStaff={isStaff} isAdmin={isAdmin}>
+          <div className="wrapper">
+            <AllPubs articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin} setArticleID={setArticleID}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+      </AdminRoute>
+      <AdminRoute path='/allsubs' isStaff={isStaff} isAdmin={isAdmin}>
+          <div className="wrapper">
+            <AllSubs articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin} setArticleID={setArticleID}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+      </AdminRoute>
+      <AdminRoute path='/allrejs' isStaff={isStaff} isAdmin={isAdmin}>
+          <div className="wrapper">
+            <AllRejs articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin} setArticleID={setArticleID}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+      </AdminRoute>
+      <AdminRoute path='/adminedit' isStaff={isStaff} isAdmin={isAdmin}>
+          <div className="wrapper">
+            <AdminEdit user={user} articleID={articleID}/>
+            <Sidebar articles={articles} setArticles={setArticles}/>        
+          </div>
+      </AdminRoute>
+
+
+
+
+
+
+
+
+
+
         <Route path='/constories'>
           <div className="wrapper">
-            <PageCon articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <PageCon articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
         </Route>
         <Route path='/curstories'>
           <div className="wrapper">
-            <PageCur articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <PageCur articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
         </Route>
         <Route path='/nrgstories'>
           <div className="wrapper">
-            <PageNrg articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <PageNrg articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
         </Route>
@@ -166,21 +219,21 @@ function App() {
         <Route path='/login'>
           <LoginForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
         </Route>
-        <PrivateRoute path='/edit' isStaff={isStaff}>
+        <PrivateRoute path='/edit' isStaff={isStaff} isAdmin={isAdmin}>
           <ArticleEdit user={user} articleID={articleID}/>
         </PrivateRoute>
-        <Route path='/new' isStaff={isStaff}>
+        <Route path='/new' isStaff={isStaff} isAdmin={isAdmin}>
           <ArticleNew user={user}/>
         </Route>
         <Route path='/register'>
           <RegistrationForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
         </Route>
-        <Route path='/profile'>
+        {/* <Route path='/profile'>
           <ProfileForm isAuth={isAuth} setIsAuth={setIsAuth} user={user} setUser={setUser}/>
-        </Route>
+        </Route> */}
         <Route path=''>
           <div className="wrapper">
-            <Page articles={articles} setArticles={setArticles} isStaff={isStaff}/>
+            <Page articles={articles} setArticles={setArticles} isStaff={isStaff} isAdmin={isAdmin}/>
             <Sidebar articles={articles} setArticles={setArticles}/>        
           </div>
         </Route>        

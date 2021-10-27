@@ -24,6 +24,7 @@ function Navbar(props){
         Cookies.remove('Authorization');
         props.setIsAuth(false);
         props.setIsStaff(false);
+        props.setIsAdmin(false);
         props.setUser(4);
         // props.setIsStaff(false);
       }
@@ -47,8 +48,8 @@ function Navbar(props){
       logHTML = <NavLink to='/login'> Login </NavLink>  
     }
 
-    if (props.isStaff === true) {
-      staffPageLink = <><li className="nav-item mr-3"> <NavLink to='/mystories'> My Stories </NavLink></li>
+    if (props.isStaff === true && props.isAdmin === false){
+       staffPageLink = <><li className="nav-item mr-3"> <NavLink to='/mystories'> My Stories </NavLink></li>
           <li className="nav-item mr-3">
             <NavLink to='/mydfts'> Drafts </NavLink>
           </li>
@@ -61,7 +62,23 @@ function Navbar(props){
           <li className="nav-item mr-3">
             <NavLink to='/myrejs'> Rejected </NavLink>
           </li></>
-    } else {
+    } else if (props.isAdmin === true){
+      staffPageLink = 
+      <>
+        <li className="nav-item mr-3">
+            <NavLink to='/alldfts'> Drafts </NavLink>
+        </li>
+        <li className="nav-item mr-3">
+            <NavLink to='/allsubs'> Submitted </NavLink>
+        </li>
+        <li className="nav-item mr-3">
+            <NavLink to='/allpubs'> Published </NavLink>
+        </li>
+        <li className="nav-item mr-3">
+            <NavLink to='/allrejs'> Rejected </NavLink>
+        </li>
+      </>    
+    }else {
       staffPageLink=<></>
     }
 

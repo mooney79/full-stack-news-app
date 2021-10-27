@@ -73,6 +73,38 @@ class BitesizeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
+class DraftsList(generics.ListCreateAPIView):
+    serializer_class = ArticleSerializer
+    """Returns Drafts written by User"""
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        queryset = Article.objects.filter(phase='dft')
+        return queryset
+
+class SubsList(generics.ListCreateAPIView):
+    serializer_class = ArticleSerializer
+    """Returns Submitted written by User"""
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        queryset = Article.objects.filter(phase='sub')
+        return queryset
+
+class PubsList(generics.ListCreateAPIView):
+    serializer_class = ArticleSerializer
+    """Returns Published written by User"""
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        queryset = Article.objects.filter(phase='pub')
+        return queryset
+
+class RejList(generics.ListCreateAPIView):
+    serializer_class = ArticleSerializer
+    """Returns Rej written by User"""
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        queryset = Article.objects.filter(phase='rej')
+        return queryset
+
 class PersonalDraftsList(generics.ListCreateAPIView):
     serializer_class = ArticleSerializer
     """Returns Drafts written by User"""

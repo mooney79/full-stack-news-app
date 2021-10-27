@@ -35,10 +35,17 @@ function Page(props){
         posts = <> <Spinner animation="grow" variant='primary' /><p>Loading...</p></>
     }
 
+    // let adminTest;
+    // if (props.isAdmin === true){
+    //     adminTest = <h1>I AM ADMIN!</h1>
+    // } else {
+    //     adminTest = <h1>I AM NOT ADMIN!</h1>
+    // }
 
     return (
         <div className="page">
             <div className="article col-12">
+                {/* {adminTest} */}
                 {posts}
             </div>
         </div>

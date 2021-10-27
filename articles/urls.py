@@ -13,7 +13,11 @@ urlpatterns = [
     path('personal/pub/', views.PersonalPubsList.as_view(), name="my_articles_list"),    
     path('personal/rej/', views.PersonalRejList.as_view(), name="my_articles_list"),    
     path('bitesize/', views.BitesizeAPIViewList.as_view(), name="bitesize_news_list"),   
-    path('bitesize/<int:pk>/', views.BitesizeDetailAPIView.as_view(), name="bitesize_details"),     
+    path('bitesize/<int:pk>/', views.BitesizeDetailAPIView.as_view(), name="bitesize_details"),
+    path('dfts/', views.DraftsList.as_view(), name="drafts_list"),
+    path('subs/', views.SubsList.as_view(), name="subs_list"),
+    path('pubs/', views.PubsList.as_view(), name="pubs_list"),
+    path('rej/', views.RejList.as_view(), name="rej_list"),
 ]
 
 # path('con/', views.ArticleListConspiracyView.as_view(), name="conspiracy_list"),
