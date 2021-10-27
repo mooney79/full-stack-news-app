@@ -65,7 +65,10 @@ function Article(props){
                 <h2>{props.headline}</h2>
                 <button className="read-button" onClick={handleClick}>Read More</button>
             </div>
-            <p>{props.text}</p>            
+            {/* <div className="bodywrap"> */}
+            <p>{props.text}</p>     
+            {/* <button className="read-button" onClick={handleClick}>Read More</button>        */}
+            {/* </div> */}
         </article>
     }
 

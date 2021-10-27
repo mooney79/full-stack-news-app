@@ -29,7 +29,7 @@ import AllSubs from './components/AllSubs';
 import AllPubs from './components/AllPubs';
 import AllDfts from './components/AllDfts';
 import AllRejs from './components/AllRejs';
-
+// import Test from './components/Test';
 
 
 function App() {
@@ -116,6 +116,7 @@ function App() {
     <div className="App">
       <Masthead />
       <Navbar isAuth={isAuth} setIsAuth={setIsAuth} user={user} isStaff={isStaff} setUser={setUser} setIsStaff={setIsStaff} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
+      {/* <Test /> */}
       <Switch>
       <PrivateRoute path='/mystories' isStaff={isStaff} isAdmin={isAdmin}>
           <div className="wrapper">

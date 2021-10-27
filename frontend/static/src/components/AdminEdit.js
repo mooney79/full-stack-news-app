@@ -7,6 +7,8 @@ import { useHistory } from 'react-router-dom';
 function ArticleEdit(props){
     const [story, setStory] = useState({submit: 0});
     const history = useHistory();
+    const [preview, setPreview] = useState('');
+    let filehold;
 
     async function fetchArticleDetail(){
         if (props.articleID === 0){
@@ -31,6 +33,30 @@ function ArticleEdit(props){
         fetchArticleDetail();
     }, [])
 
+    useEffect(async () => {
+        const formData = new FormData(); //Constructing key value pairs below VVV
+        // formData.append('headline', story.headline);
+        formData.append('photo1', filehold);
+        // formData.append('text', story.text);
+        // formData.append('author', story.author);
+        // formData.append('category1', story.category1);
+        // formData.append('category2', story.category2);
+        // formData.append('category3', story.category3);
+
+    const options = {
+      method: 'PUT',
+      headers: {
+        'X-CSRFToken': Cookies.get('csrftoken'), 
+      },
+      body: formData,
+    }
+    const response = await fetch(`/media/`, options); 
+    filehold=response;
+  }, [preview])
+
+
+
+
     // useEffect(() => {
     //     if(story.submit) {
     //         async function postData() {
@@ -52,12 +78,57 @@ function ArticleEdit(props){
            
     //     }
     // }, [story.submit]);
+    
+    const handleImage = (event) => {
+        const file = event.target.files[0];
+        setStory({
+          ...story,
+          photo1: file,
+        })
+        const reader = new FileReader(); //Async
+        reader.onloadend = () => {
+          setPreview(reader.result);
+        }
+        reader.readAsDataURL(file); //returns URL
+        setStory({
+            ...story,
+            photo1: file,
+        })
+        filehold = file;
+        console.log(filehold);
+        console.log(file);
+        
+    }
+
 
     async function handleSubmit(event){
         event.preventDefault();
         const phase = story.phase;
-        const newstory = {...story}
+        const newstory = {...story, 'photo1': filehold};
+        console.log(newstory);
         // newstory.phase = phase;
+
+/*
+
+const handleImageChange = (event) => {
+    event.preventDefault();
+    const formData = new FormData(); //Constructing key value pairs below VVV
+    formData.append('alias', profile.alias);
+    formData.append('avatar', profile.avatar);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': Cookies.get('csrftoken'), 
+      },
+      body: formData,
+    }
+    // fetch(url, options);  <-- would work once the url is set up
+
+  }
+
+*/
+
 
         const options = {
             method: 'PUT',
@@ -74,6 +145,31 @@ function ArticleEdit(props){
         // setStory(data);
         history.push('/alldfts');
     }
+
+    /*
+    
+    const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(); //Constructing key value pairs below VVV
+    formData.append('alias', profile.alias);
+    formData.append('avatar', profile.avatar);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': Cookies.get('csrftoken'), 
+      },
+      body: formData,
+    }
+    // fetch(url, options);  <-- would work once the url is set up
+
+  }
+    
+    */
+
+
+
+
 
     return(
         <form className="mt-3 col-6" onSubmit={handleSubmit} >
@@ -128,20 +224,26 @@ function ArticleEdit(props){
             </select>
         </div>       
 
+
+        <label htmlFor='photo1'>Photograph:&nbsp;&nbsp;</label>
+        <input type="file" name="photo1" onChange={handleImage}/>
+        {story.photo1 && <img src={preview} alt ="" />}
+        
+
         {/* <button value="dft" type="button" onClick={handleSubmit} className="btn btn-primary mt-3" >Save and Quit</button>
         <button value="sub" type="button" onClick={handleSubmit} className="btn btn-primary mt-3" >Submit</button> */}
 
         
 
-        <div className="form-group text-left mb-3">
+        <div className="form-group text-left mb-3 row flex-div">
             <label htmlFor='phase'>Phase:</label>
-            <select id="phase" name="phase" className="form-control" onChange={handleInput} value={story.phase}>
+            <select id="phase" name="phase" className="form-control phase-submit col-8" onChange={handleInput} value={story.phase}>
                 <option value="dft">Draft</option>
                 <option value="sub">Submitted</option>
                 <option value="pub">Published</option>
                 <option value="rej">Rejected</option>
             </select>
-            <button onclick="handleSubmit">Save</button>
+            <button className="phase-button col-2"onclick="handleSubmit">Save</button>
         </div>       
 
 

@@ -133,7 +133,20 @@ h3 {
   margin-left: auto;
   margin-right: auto;
   display: inline-block;
-  width: 20%;
+  width: 15%;
   justify-self: center;
   background-color: green;
+}
+
+.phase-submit{
+  width: 75%;
+}
+
+.phase-button{
+  display: inline-block;
+}
+
+.flex-div{
+  display: flex;
+
 }
