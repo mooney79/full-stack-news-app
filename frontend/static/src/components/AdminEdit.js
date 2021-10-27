@@ -51,7 +51,7 @@ function ArticleEdit(props){
       body: formData,
     }
     const response = await fetch(`/media/`, options); 
-    filehold=response;
+    console.log(response);
   }, [preview])
 
 
@@ -81,30 +81,37 @@ function ArticleEdit(props){
     
     const handleImage = (event) => {
         const file = event.target.files[0];
-        setStory({
-          ...story,
-          photo1: file,
-        })
+        // setStory({
+        //   ...story,
+        //   photo1: file,
+        // })
         const reader = new FileReader(); //Async
         reader.onloadend = () => {
           setPreview(reader.result);
+          console.log(reader.result);
+          filehold=reader.result;
+        //   setStory({
+        //     ...story,
+        //     'photo1': file,
+        //  })
+         console.log(story);
         }
+        
         reader.readAsDataURL(file); //returns URL
-        setStory({
-            ...story,
-            photo1: file,
-        })
+       
         filehold = file;
         console.log(filehold);
         console.log(file);
+        console.log(reader);
+        console.log(reader.result);
         
     }
 
 
     async function handleSubmit(event){
         event.preventDefault();
-        const phase = story.phase;
-        const newstory = {...story, 'photo1': filehold};
+        // const phase = story.phase;
+        const newstory = {...story}; //, 'photo1': filehold};
         console.log(newstory);
         // newstory.phase = phase;
 
@@ -243,7 +250,7 @@ const handleImageChange = (event) => {
                 <option value="pub">Published</option>
                 <option value="rej">Rejected</option>
             </select>
-            <button className="phase-button col-2"onclick="handleSubmit">Save</button>
+            <button className="phase-button col-2"onClick="handleSubmit">Save</button>
         </div>       
 
 

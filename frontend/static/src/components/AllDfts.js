@@ -26,7 +26,7 @@ function MyDfts(props){
     
   
     let myPosts;
-    let myDrafts;
+    // let myDrafts;
     if (myStories !== []){
         // myDrafts = props.articles.filter(post => post.phase === "dft");
         // myPosts = myDrafts.map(post => <Post key={post.id+8000} {...post} articles={props.articles} setArticles={props.setArticles} setArticleID={props.setArticleID}/>)

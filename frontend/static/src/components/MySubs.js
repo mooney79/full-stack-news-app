@@ -25,7 +25,7 @@ function MySubs(props){
     
   
     let myPosts;
-    let mySubmits;
+    // let mySubmits;
     if (myStories !== []){
         // mySubmits = props.articles.filter(post => post.phase === "sub");
         // myPosts = mySubmits.map(post => <Post key={post.id+8000} {...post} articles={props.articles} setArticles={props.setArticles} setArticleID={props.setArticleID}/>)

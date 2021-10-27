@@ -25,7 +25,7 @@ function MyPubs(props){
     
   
     let myPosts;
-    let myPublish;
+    // let myPublish;
     if (myStories !== []){
         // myPublish = props.articles.filter(post => post.phase === "pub");
         // myPosts = myPublish.map(post => <Post key={post.id+8000} {...post} articles={props.articles} setArticles={props.setArticles} setArticleID={props.setArticleID}/>)

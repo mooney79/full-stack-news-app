@@ -1,40 +1,40 @@
 import './Article.css';
 // import Collapse from 'react-bootstrap/Collapse'
-import { useState, useEffect, useCallback } from 'react';
+import { useState /*, useEffect, useCallback*/ } from 'react';
 
 function Article(props){
     // const [open, setOpen] = useState(true);
     const [, updateState] = useState();
-    const forceUpdate = useCallback(() => updateState({}), []);
-    console.log(props);
+    // const forceUpdate = useCallback(() => updateState({}), []);
+    // console.log(props);
     // setOpen(true);
 
     let articleHTML;                           // TEST (!!props.article.photo3)
     if (props.photo3 !== null){              //Set proper styling for each case
         articleHTML =    
         <article id="{props.id}">
-            <img src={props.photo1} className="photo1-3-photo-layout" />
+            <img src={props.photo1} className="photo1-3-photo-layout" alt=''/>
             <div className="headwrap">
                 <h2>{props.headline}</h2>
                 <button id="read-button" onClick={handleClick}>Read More</button>
-                <img src={props.photo2} className="photo2-3-photo-layout" />
+                <img src={props.photo2} className="photo2-3-photo-layout"  alt=''/>
             </div>
             <p>{props.text}</p>      
-            <img src={props.photo3} className="photo3-3-photo-layout" />      
+            <img src={props.photo3} className="photo3-3-photo-layout"  alt=''/>      
         </article>
     } else if (false) {//(props.photo2 !== null){         //// TEST (!!props.article.photo2)
         articleHTML =    
         <article id="{props.id}" className="two-photo">
             {/* <div className="two-photo-wrap"> */}
                 <div className="headwrap">
-                    <img src={props.photo1} className="photo1-2-photo-layout" />
+                    <img src={props.photo1} className="photo1-2-photo-layout"  alt=''/>
                     <h2>{props.headline}</h2>
                     <button id="read-button" onClick={handleClick}>Read More</button>                
                 </div>
                 <div className="wrapping">
                     <p>{props.text}</p> 
                     <div className="floated-right">
-                        <img src={props.photo2} className="photo2-2-photo-layout" />
+                        <img src={props.photo2} className="photo2-2-photo-layout" alt='' />
                     </div>
                     
                 {/* </div> */}
@@ -50,7 +50,7 @@ function Article(props){
                 <button className=" read-button read-button-photo" onClick={handleClick}>Read More</button>                
             </div>
             <div className="photo-wrap">
-                <img src={props.photo1} className="photo1-1-photo-layout" />                                 
+                <img src={props.photo1} className="photo1-1-photo-layout"  alt=''/>                                 
                 <p>{props.text}</p>
             </div>
         </article>

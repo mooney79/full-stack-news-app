@@ -9,7 +9,7 @@ import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
-import ProfileForm from './components/ProfileForm'
+// import ProfileForm from './components/ProfileForm'
 import RegistrationForm from './components/RegistrationForm'
 import LoginForm from './components/Login/LoginForm'
 import Cookies from 'js-cookie';
@@ -20,7 +20,7 @@ import ArticleNew from './components/ArticleNew';
 import PageCon from './components/PageCon';
 import PageCur from './components/PageCur';
 import PageNrg from './components/PageNrg';
-import TestingPhotos from './components/Test'
+// import TestingPhotos from './components/Test'
 import MySubs from './components/MySubs';
 import MyPubs from './components/MyPubs';
 import MyDfts from './components/MyDfts';
@@ -87,10 +87,12 @@ function App() {
   };
 
   useEffect(async () => {
+    // async function fetchData() {
     await fetchUser();
     await fetchArticles();
     await checkStaff();
-  }, [, isAuth]);
+    // }
+  }, [isAuth]);
 
 
   useEffect(()=> {

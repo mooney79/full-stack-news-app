@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 
 function ProfileForm() {
   const [profile, setProfile] = useState({
@@ -32,13 +32,13 @@ function ProfileForm() {
     formData.append('alias', profile.alias);
     formData.append('avatar', profile.avatar);
 
-    const options = {
-      method: 'POST',
-      headers: {
-        'X-CSRFToken': Cookies.get('csrftoken'), 
-      },
-      body: formData,
-    }
+    // const options = { 
+    //   method: 'POST',
+    //   headers: {
+    //     'X-CSRFToken': Cookies.get('csrftoken'), 
+    //   },
+    //   body: formData,
+    // }
     // fetch(url, options);  <-- would work once the url is set up
 
   }

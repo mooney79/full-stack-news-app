@@ -24,7 +24,7 @@ function MyRejs(props){
     
     
     let myPosts;
-    let myRejects;
+    // let myRejects;
     if (myStories !== []){
         // myRejects = props.articles.filter(post => post.phase === "rej");
         // myPosts = myRejects.map(post => <Post key={post.id+8000} {...post} articles={props.articles} setArticles={props.setArticles} setArticleID={props.setArticleID}/>)

@@ -20,7 +20,7 @@ function Navbar(props){
       if(!response){
           console.log(response);
       } else {
-        const data = await response.json();
+        // const data = await response.json();
         Cookies.remove('Authorization');
         props.setIsAuth(false);
         props.setIsStaff(false);
